@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using BusinessObject.Dtos.Account;
+using BusinessObject.Dtos.Product;
+using BusinessObject.Entities.Account;
 using BusinessObject.Entities.Product;
 
 namespace BusinessObject.Mappers
@@ -7,10 +10,12 @@ namespace BusinessObject.Mappers
     {
         public MapperProfile()
         {
-            CreateMap<ProductViewModel, Product>().ReverseMap();
+            CreateMap<AppUser, RegisterDtos>().ReverseMap();
+            CreateMap<AppUser, LoginDtos>().ReverseMap();
 
-            CreateMap<CreateProductViewModel, Product>().ReverseMap();
-            CreateMap<UpdateProductViewModel, Product>().ReverseMap();
+            CreateMap<Product, CreateProductViewModel>().ReverseMap();
+            CreateMap<Product, ProductViewModel>().ReverseMap();
+            CreateMap<Product, UpdateProductViewModel>().ReverseMap();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System;
 using BusinessObject.Entities.Product;
+using ServiceProduct.Repository;
 
 namespace ServiceProduct.IRepository
 {

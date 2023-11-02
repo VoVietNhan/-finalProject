@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using ServiceProduct.ViewModels;
+using BusinessObject.Dtos.Product;
 
 namespace ServiceProduct.IServices
 {

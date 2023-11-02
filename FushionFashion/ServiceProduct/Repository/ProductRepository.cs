@@ -1,12 +1,12 @@
-﻿
-using ServiceProduct.IServices;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System;
 using System.Linq;
-using ServiceProduct.IRepository;
 using BusinessObject.Enum.EnumStatus;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Entities.Product;
+using ServiceProduct.Services;
+using ServiceProduct.IRepository;
+using ServiceProduct.IServices;
 
 namespace ServiceProduct.Repository
 {

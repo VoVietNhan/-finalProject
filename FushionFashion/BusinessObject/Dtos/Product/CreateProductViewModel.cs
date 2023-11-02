@@ -1,6 +1,6 @@
 ﻿using BusinessObject.Enum.EnumStatus;
 
-namespace ServiceProduct.ViewModels
+namespace BusinessObject.Dtos.Product
 {
     public class CreateProductViewModel
     {

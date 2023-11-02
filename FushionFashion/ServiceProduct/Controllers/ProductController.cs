@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ServiceProduct.IServices;
-using ServiceProduct.ViewModels;
 using System.Threading.Tasks;
 using System;
+using BusinessObject.Dtos.Product;
+using ServiceProduct.Services;
+using ServiceProduct.IServices;
 
 namespace ServiceProduct.Controllers
 {

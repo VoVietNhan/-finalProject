@@ -1,6 +1,6 @@
-﻿using ServiceProduct.IRepository;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System;
+using ServiceProduct.IRepository;
 
 namespace ServiceProduct
 {

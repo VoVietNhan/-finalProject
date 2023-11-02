@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
-using ServiceProduct.IServices;
-using ServiceProduct.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using BusinessObject.Entities.Product;
+using BusinessObject.Dtos.Product;
+using ServiceProduct.Repository;
+using Microsoft.EntityFrameworkCore;
+using ServiceProduct.IServices;
 
 namespace ServiceProduct.Services
 {

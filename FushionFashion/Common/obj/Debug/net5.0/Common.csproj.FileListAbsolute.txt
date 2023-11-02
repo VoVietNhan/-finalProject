@@ -1,0 +1,11 @@
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\bin\Debug\net5.0\Common.deps.json
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\bin\Debug\net5.0\Common.dll
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\bin\Debug\net5.0\Common.pdb
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\obj\Debug\net5.0\Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\obj\Debug\net5.0\Common.AssemblyInfoInputs.cache
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\obj\Debug\net5.0\Common.AssemblyInfo.cs
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\obj\Debug\net5.0\Common.csproj.CoreCompileInputs.cache
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\obj\Debug\net5.0\Common.dll
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\obj\Debug\net5.0\refint\Common.dll
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\obj\Debug\net5.0\Common.pdb
+D:\Code\8\PRN231\Project\Main\finalProject\FushionFashion\Common\obj\Debug\net5.0\ref\Common.dll

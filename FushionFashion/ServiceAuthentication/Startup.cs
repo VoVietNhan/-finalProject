@@ -1,5 +1,6 @@
 using BusinessObject.Entities.Account;
 using BusinessObject.Mappers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -43,6 +44,10 @@ namespace ServiceAuthentication
                 options.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<AppDBContext>()
             .AddDefaultTokenProviders();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -64,6 +69,8 @@ namespace ServiceAuthentication
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

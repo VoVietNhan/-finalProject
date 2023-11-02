@@ -16,7 +16,7 @@ namespace ServiceAuthentication.Controllers
         {
             _authenticationService = authenticationService;
         }
-        [HttpPost]
+        [HttpPost("Register")]
         public async Task<ActionResult> Register(RegisterDtos registerDtos)
         {
             var user = await _authenticationService.RegisterUser(registerDtos);
@@ -24,13 +24,18 @@ namespace ServiceAuthentication.Controllers
             {
                 return NotFound();
             }
-            return Ok("Register User sucess!");
+            return Ok("Register sucess!");
         }
 
-        /*[HttpPost]
-        public Task LogIn(LoginDtos loginDtos)
+        [HttpPost("Login")]
+        public async Task<ActionResult> LoginUser(LoginDtos loginDtos)
         {
-
-        }*/
+            var user = await _authenticationService.LoginUser(loginDtos);
+            if (user != null)
+            {
+                return Ok("Login Success!");
+            }
+            return BadRequest("Login Fail!");
+        }
     }
 }

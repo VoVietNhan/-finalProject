@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using BusinessObject.Dtos.Account;
+using BusinessObject.Entities.Account;
 
 namespace BusinessObject.Mappers
 {
@@ -6,7 +8,8 @@ namespace BusinessObject.Mappers
     {
         public MapperProfile()
         {
-
+            CreateMap<AppUser, RegisterDtos>().ReverseMap();
+            CreateMap<AppUser, LoginDtos>().ReverseMap();
         }
     }
 }

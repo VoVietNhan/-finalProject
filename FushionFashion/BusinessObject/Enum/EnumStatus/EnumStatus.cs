@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessObject.Enum.EnumStatus
 {
-    public class EnumStatus
+    public enum EnumStatus
     {
         Enable = 1,
         Disable = 0

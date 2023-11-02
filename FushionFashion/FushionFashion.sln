@@ -5,19 +5,19 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cores", "Cores", "{55A12A4D-B90E-4485-9286-1D2C3AF69C3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{665D4DB5-10EA-4C21-917F-23FC5BA887A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{665D4DB5-10EA-4C21-917F-23FC5BA887A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{BFDB3BE5-B6D9-446D-A5C4-D187391A3405}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{BFDB3BE5-B6D9-446D-A5C4-D187391A3405}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{CCFF3C68-C81A-4AFE-A994-96E15A0AD829}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{97F9F168-E5FD-4CBB-9566-73EEBE7B6631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGateway", "APIGateway\APIGateway.csproj", "{A7BB61D3-8AA3-4468-97B3-3BE2AE558BA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\APIGateway.csproj", "{A7BB61D3-8AA3-4468-97B3-3BE2AE558BA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceProduct", "ServiceProduct\ServiceProduct.csproj", "{58B6DF61-EAFF-4E91-92B3-9EA21374B265}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceProduct", "ServiceProduct\ServiceProduct.csproj", "{58B6DF61-EAFF-4E91-92B3-9EA21374B265}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceAuthentication", "ServiceAuthentication\ServiceAuthentication.csproj", "{40BB7DE3-31DE-4B02-BE59-9743BCB88860}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceAuthentication", "ServiceAuthentication\ServiceAuthentication.csproj", "{40BB7DE3-31DE-4B02-BE59-9743BCB88860}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BusinessObject.Entities.Cart
 {
-    internal class CartDetail
+    public class CartDetail:BaseEntity
     {
+        public int Quantity { get; set; }
+        public Guid ProductId { get; set; }
+        public Guid CartId { get; set; }
+        public Cart? Cart { get; set; }
     }
 }

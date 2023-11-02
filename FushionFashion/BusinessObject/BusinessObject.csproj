@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
+    <Folder Include="Dtos\CartDetail\" />
     <Folder Include="Enum\" />
   </ItemGroup>
 

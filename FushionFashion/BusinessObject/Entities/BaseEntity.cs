@@ -3,7 +3,7 @@
 namespace BusinessObject.Entities
 {
     public class BaseEntity
-    {
+    {   
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }= DateTime.Now;
         public Guid CreatedBy { get; set; } = Guid.Empty;

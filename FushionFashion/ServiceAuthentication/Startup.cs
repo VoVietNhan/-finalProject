@@ -1,23 +1,19 @@
 using BusinessObject.Entities.Account;
 using BusinessObject.Mappers;
+using Common.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ServiceAuthentication.Data;
 using ServiceAuthentication.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace ServiceAuthentication
 {
@@ -34,8 +30,13 @@ namespace ServiceAuthentication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(MapperProfile));
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDB")));
+            services.AddSingleton(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+            services.AddScoped<IEmailService, EmailService>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = true;
+            });
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 5;
@@ -47,6 +48,23 @@ namespace ServiceAuthentication
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
             });
 
             services.AddControllers();

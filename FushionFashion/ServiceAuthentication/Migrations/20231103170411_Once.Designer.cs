@@ -10,7 +10,7 @@ using ServiceAuthentication.Data;
 namespace ServiceAuthentication.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20231102092624_Once")]
+    [Migration("20231103170411_Once")]
     partial class Once
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,6 +120,22 @@ namespace ServiceAuthentication.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "03b8f440-2950-4ba9-b6a9-be00753ea9ae",
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "e5ff1c23-6461-4f93-b5d5-166a6a10ef7c",
+                            ConcurrencyStamp = "2",
+                            Name = "User",
+                            NormalizedName = "User"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -31,11 +31,6 @@ namespace CartService.Controllers
             {
                 var cart = new Cart();
                 cart.CreatedBy = UserId;
-                cart.ApprovedBy = UserId;
-                cart.ModifiedBy = UserId;
-                cart.ApprovedDate = DateTime.Now;
-                cart.ModifiedDate = DateTime.Now;
-                cart.ApprovedDate = DateTime.Now;
                 cart.Status = BusinessObject.Enum.EnumStatus.EnumStatus.Enable;
                 await _cartContext.Carts.AddAsync(cart);
                 await _cartContext.SaveChangesAsync();

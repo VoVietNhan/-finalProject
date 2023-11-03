@@ -78,13 +78,5 @@ namespace ServiceAuthentication.Controllers
             }
             return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User doesn't exists!" });
         }
-
-        [HttpGet]
-        public async Task<IActionResult> TestMail()
-        {
-            var message = new Message(new string[] { "sontc.work@gmail.com" }, "Test", "<h1>Hello member!</h1>");
-            _emailService.SendEmail(message);
-            return StatusCode(StatusCodes.Status200OK, new Response { Status = "Success", Message = "Email sent successfullt" });
-        }
     }
 }

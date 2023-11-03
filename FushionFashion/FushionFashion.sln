@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceProduct", "ServicePr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceAuthentication", "ServiceAuthentication\ServiceAuthentication.csproj", "{40BB7DE3-31DE-4B02-BE59-9743BCB88860}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartService", "CartService\CartService.csproj", "{B8F1D41E-A025-4FB5-8213-1999AF786DB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService", "CartService\CartService.csproj", "{B8F1D41E-A025-4FB5-8213-1999AF786DB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService", "OrderService\OrderService.csproj", "{B5BF26E4-F613-4D24-A86A-5A85243AA164}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{B8F1D41E-A025-4FB5-8213-1999AF786DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F1D41E-A025-4FB5-8213-1999AF786DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F1D41E-A025-4FB5-8213-1999AF786DB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5BF26E4-F613-4D24-A86A-5A85243AA164}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5BF26E4-F613-4D24-A86A-5A85243AA164}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5BF26E4-F613-4D24-A86A-5A85243AA164}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BF26E4-F613-4D24-A86A-5A85243AA164}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{58B6DF61-EAFF-4E91-92B3-9EA21374B265} = {97F9F168-E5FD-4CBB-9566-73EEBE7B6631}
 		{40BB7DE3-31DE-4B02-BE59-9743BCB88860} = {97F9F168-E5FD-4CBB-9566-73EEBE7B6631}
 		{B8F1D41E-A025-4FB5-8213-1999AF786DB4} = {97F9F168-E5FD-4CBB-9566-73EEBE7B6631}
+		{B5BF26E4-F613-4D24-A86A-5A85243AA164} = {97F9F168-E5FD-4CBB-9566-73EEBE7B6631}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3AB116E1-916A-4819-A1C2-AD13299C86BF}

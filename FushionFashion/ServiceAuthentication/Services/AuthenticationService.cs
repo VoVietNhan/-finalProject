@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using BusinessObject.Dtos.Account;
 using BusinessObject.Entities.Account;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ServiceAuthentication.Services
@@ -18,8 +21,13 @@ namespace ServiceAuthentication.Services
             _mapper = mapper;
         }
 
-        public async Task<RegisterDtos> RegisterUser(RegisterDtos registerDtos)
+        public async Task<AppUser> RegisterUser(RegisterDtos registerDtos)
         {
+            var userExits = await _userManager.FindByEmailAsync(registerDtos.Username);
+            if (userExits != null)
+            {
+                throw new Exception("Username already exists!");
+            }
             var identityUser = new AppUser
             {
                 UserName = registerDtos.Username,
@@ -29,8 +37,19 @@ namespace ServiceAuthentication.Services
                 Fullname = registerDtos.Fullname,
                 Status = BusinessObject.Enum.EnumStatus.EnumStatus.Enable
             };
-            var result = await _userManager.CreateAsync(identityUser, registerDtos.Password);
-            return null;
+            await _userManager.CreateAsync(identityUser, registerDtos.Password);
+            return identityUser;
+        }
+
+        public async Task<AppUser> LoginUser(LoginDtos loginDtos)
+        {
+            var identityUser = await _userManager.FindByEmailAsync(loginDtos.Username);
+            if (identityUser == null)
+            {
+                throw new Exception("Username doesn't exists!");
+            }
+            await _userManager.CheckPasswordAsync(identityUser, loginDtos.Password);
+            return identityUser;
         }
     }
 }

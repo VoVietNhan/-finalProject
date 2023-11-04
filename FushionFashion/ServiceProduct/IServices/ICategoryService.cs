@@ -9,8 +9,6 @@ namespace ServiceProduct.IServices
     {
         Task<List<CategoryViewModel>> GetCategory();
         public Task<CreateCategoryViewModel?> CreateCategory(CreateCategoryViewModel categoryDTO);
-        Task DeleteCategory(Guid id);
-        public Task<UpdateCategoryViewModel?> UpdateCategory(Guid id, UpdateCategoryViewModel categoryDTO);
         Task<CategoryViewModel> GetCategoryById(Guid id);
     }
 }

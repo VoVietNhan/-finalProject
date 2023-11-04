@@ -17,6 +17,7 @@ namespace ServiceProduct.Controllers
         {
             _productService = productService;
         }
+
         [HttpGet("GetAllProduct")]
         public async Task<ActionResult<ProductViewModel>> GetAllProduct()
         {

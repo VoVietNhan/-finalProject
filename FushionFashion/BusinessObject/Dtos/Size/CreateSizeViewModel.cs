@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessObject.Dtos.Category
+namespace BusinessObject.Dtos.Size
 {
-    public class UpdateCategoryViewModel
+    public class CreateSizeViewModel
     {
-        public string? Name { get; set; }
+        public string? ProSize { get; set; }
     }
 }

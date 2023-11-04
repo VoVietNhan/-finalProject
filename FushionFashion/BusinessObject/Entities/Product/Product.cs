@@ -14,6 +14,9 @@ namespace BusinessObject.Entities.Product
         public string? Image { get; set; }
         public decimal Price { get; set; }
         public EnumStatus Status { get; set; }
+        public Guid CategoryId { get; set; }
+        public Category? Category { get; set; }
+        public ICollection<ProductInfo> ProductInfos { get; set; } = new List<ProductInfo>();
 
     }
 }

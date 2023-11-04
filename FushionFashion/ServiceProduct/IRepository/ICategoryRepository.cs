@@ -6,6 +6,6 @@ namespace ServiceProduct.IRepository
 {
     public interface ICategoryRepository: IGenericRepository<Category>
     {
-        Task<Category> FindAsync(Guid id);
+
     }
 }

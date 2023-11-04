@@ -23,13 +23,13 @@ namespace OrderService.Controllers
         [HttpGet("GetAll")]
         public async Task<List<Order>> GetALlOrder()
         {
-            var order = await _orderContext.Orders.ToListAsync();
+            var order = await _orderContext.Orders.Include(x=>x.OrderDetails).ToListAsync();
             return order;
         }
         [HttpGet("GetOrder")]
         public async Task<Order> GetOrder (Guid OrderId)
         {
-            var order = await _orderContext.Orders.FirstOrDefaultAsync(x => x.Id.Equals(OrderId));
+            var order = await _orderContext.Orders.Include(x => x.OrderDetails).FirstOrDefaultAsync(x => x.Id.Equals(OrderId));
             return order;
         }
         [HttpPost("Create")]

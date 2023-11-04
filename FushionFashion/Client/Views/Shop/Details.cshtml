@@ -1,7 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model BusinessObject.Dtos.Product.ProductViewModel
 @{
+
 }
 <style>
       *{
@@ -222,56 +221,18 @@ body{
         <!--**Img*************************-->
         <div class="product-img">
 
-            <!-- Swiper Slider -->
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
+            <img src=""/>
 
-                    <!--**1******-->
-                    <div class="swiper-slide">
-                        <img src="images/1.jpg" />
-                    </div>
-                    <!--**2******-->
-                    <div class="swiper-slide">
-                        <img src="images/2.jpg" />
-                    </div>
-                    <!--**3******-->
-                    <div class="swiper-slide">
-                        <img src="images/3.jpg" />
-                    </div>
-                    <!--**4******-->
-                    <div class="swiper-slide">
-                        <img src="images/1.jpg" />
-                    </div>
-
-                </div>
-
-                <!--btns-->
-                <div class="slider-btns">
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
-            </div>
-
-
-            <!--social-->
-            <div class="img-social-bar">
-                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-youtube"></i></a>
-            </div>
         </div>
         <!--**Text************************-->
         <div class="product-text">
             <!--category-->
             <span class="product-category">Women Clothes & Dresses</span>
-            <h3>ASOS Women Clothe</h3>
+            <h3>@Model.Name</h3>
             <span class="product-price">$135.3</span>
             <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis laboriosam vitae ab aspernatur qui facere a commodi cupiditate praesentium. Aliquam, voluptatem est debitis consequuntur ex autem exercitationem quas dolorem alias?
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo, enim non molestias dolores eos officia minima quidem architecto labore soluta? Expedita officiis voluptas sapiente officia debitis, mollitia eum quia.
-            </p>
+                @Model.Description
+                </p>
             <!--size-->
             <div class="product-size-container">
                 <strong>Select Size:-</strong>

@@ -10,6 +10,5 @@ namespace BusinessObject.Entities.Product
     {
         public string? ProSize { get; set; }
         public ICollection<ProductInfo> ProductInfos { get; set; } = new List<ProductInfo>();
-        public ICollection<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();
     }
 }

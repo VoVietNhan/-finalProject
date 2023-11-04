@@ -10,7 +10,7 @@ using ServiceProduct;
 namespace ServiceProduct.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20231104081234_h")]
+    [Migration("20231104100306_h")]
     partial class h
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,116 +20,6 @@ namespace ServiceProduct.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("BusinessObject.Entities.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ApprovedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ApprovedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ArriveDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ConfirmDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("DeleteBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ShippingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("BusinessObject.Entities.OrderDetails", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ApprovedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ApprovedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("DeleteBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("SizeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("SizeId");
-
-                    b.ToTable("OrderDetails");
-                });
 
             modelBuilder.Entity("BusinessObject.Entities.Product.Category", b =>
                 {
@@ -328,23 +218,6 @@ namespace ServiceProduct.Migrations
                     b.ToTable("Sizes");
                 });
 
-            modelBuilder.Entity("BusinessObject.Entities.OrderDetails", b =>
-                {
-                    b.HasOne("BusinessObject.Entities.Order", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BusinessObject.Entities.Product.Size", null)
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("SizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("BusinessObject.Entities.Product.Product", b =>
                 {
                     b.HasOne("BusinessObject.Entities.Product.Category", "Category")
@@ -375,11 +248,6 @@ namespace ServiceProduct.Migrations
                     b.Navigation("Size");
                 });
 
-            modelBuilder.Entity("BusinessObject.Entities.Order", b =>
-                {
-                    b.Navigation("OrderDetails");
-                });
-
             modelBuilder.Entity("BusinessObject.Entities.Product.Category", b =>
                 {
                     b.Navigation("Products");
@@ -392,8 +260,6 @@ namespace ServiceProduct.Migrations
 
             modelBuilder.Entity("BusinessObject.Entities.Product.Size", b =>
                 {
-                    b.Navigation("OrderDetails");
-
                     b.Navigation("ProductInfos");
                 });
 #pragma warning restore 612, 618

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Dtos\CartDetail\" />
+    <Folder Include="Entities\Order\" />
     <Folder Include="Enum\" />
   </ItemGroup>
 

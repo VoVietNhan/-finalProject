@@ -35,6 +35,7 @@ namespace CartService.Controllers
             cartDetail.CartId = cartDetaiDto.CartId;
             cartDetail.ProductId = cartDetaiDto.ProductId;
             cartDetail.Quantity = cartDetaiDto.Quantity;
+            cartDetail.CreatedBy = cartDetaiDto.UserId;
             await _context.CartDetails.AddAsync(cartDetail);
             await _context.SaveChangesAsync();
             return cartDetail;

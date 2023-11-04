@@ -35,14 +35,6 @@ namespace ServiceProduct.Services
             return null;
         }
 
-        public async Task DeleteCategory(Guid id)
-        {
-            var category = await _unitOfWork.CategoryRepository.GetByIdAsync(id);
-            category.Status = EnumStatus.Enable;
-            _unitOfWork.CategoryRepository.Update(category);
-            _unitOfWork.SaveChangeAsync();
-
-        }
 
         public async Task<List<CategoryViewModel>> GetCategory()
         {
@@ -56,25 +48,5 @@ namespace ServiceProduct.Services
             return _mapper.Map<CategoryViewModel>(category);
         }
 
-        public async Task<UpdateCategoryViewModel?> UpdateCategory(Guid id, UpdateCategoryViewModel categoryDTO)
-        {
-            var category = await _unitOfWork.CategoryRepository.GetByIdAsync(id);
-
-            if (category == null)
-            {
-                return null;
-            }
-            _mapper.Map(categoryDTO, category);
-
-            _unitOfWork.CategoryRepository.Update(category);
-            var isSuccess = await _unitOfWork.SaveChangeAsync() > 0;
-
-            if (isSuccess)
-            {
-                return _mapper.Map<UpdateCategoryViewModel>(category);
-            }
-
-            return null;
-        }
     }
 }

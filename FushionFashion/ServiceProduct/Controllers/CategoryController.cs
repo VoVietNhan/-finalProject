@@ -55,25 +55,7 @@ namespace ServiceProduct.Controllers
 
             return BadRequest("Invalid input or validation failed.");
         }
-        [HttpPut("UpdateCategory/{id}")]
-        public async Task<ActionResult<UpdateCategoryViewModel>> UpdateProduct(Guid id, UpdateCategoryViewModel categoryDTO)
-        {
-            if (ModelState.IsValid)
-            {
-                var updatedCategory = await _categoryService.UpdateCategory(id, categoryDTO);
 
-                if (updatedCategory != null)
-                {
-                    return Ok("Update Category Success");
-                }
-                else
-                {
-                    return NotFound("Category with the specified ID not found");
-                }
-            }
-            return BadRequest("Invalid Model State");
-        }
-        [HttpDelete("DeleteCategory")]
-        public async Task DeleteProduct(Guid id) => await _categoryService.DeleteCategory(id);
     }
+
 }

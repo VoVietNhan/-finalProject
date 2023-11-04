@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObject.Dtos.Category;
+using BusinessObject.Dtos.Product;
 using BusinessObject.Dtos.ProductInfo;
 using BusinessObject.Entities.Product;
 using BusinessObject.Enum.EnumStatus;
@@ -44,14 +45,31 @@ namespace ServiceProduct.Services
 
         }
 
-        public Task<List<ProductInfoViewModel>> GetProductInfo()
+        public async Task<List<ProductInfoViewModel>> GetProductInfo()
         {
-            throw new NotImplementedException();
+            var category = await _unitOfWork.ProductInfoRepository.GetAllAsync();
+            return _mapper.Map<List<ProductInfoViewModel>>(category);
         }
 
-        public Task<UpdateProductInfoViewModel> UpdateProductInfo(Guid id, UpdateProductInfoViewModel proinfoDTO)
+        public async Task<UpdateProductInfoViewModel> UpdateProductInfo(Guid id, UpdateProductInfoViewModel proinfoDTO)
         {
-            throw new NotImplementedException();
+            var productInfo = await _unitOfWork.ProductInfoRepository.GetByIdAsync(id);
+
+            if (productInfo == null)
+            {
+                return null;
+            }
+            _mapper.Map(proinfoDTO, productInfo);
+
+            _unitOfWork.ProductInfoRepository.Update(productInfo);
+            var isSuccess = await _unitOfWork.SaveChangeAsync() > 0;
+
+            if (isSuccess)
+            {
+                return _mapper.Map<UpdateProductInfoViewModel>(productInfo);
+            }
+
+            return null;
         }
     }
 }

@@ -5,15 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessObject.Dtos.Product
+namespace BusinessObject.Entities.Product
 {
-    public class UpdateProductViewModel
+    public class Category : BaseEntity
     {
-        public Guid Id { get; set; }
         public string? Name { get; set; }
-        public string? Description { get; set; }
-        public string? Image { get; set; }
-        public decimal Price { get; set; }
         public EnumStatus Status { get; set; }
     }
 }

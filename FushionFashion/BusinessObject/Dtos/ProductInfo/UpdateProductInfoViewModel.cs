@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessObject.Entities.Product
+namespace BusinessObject.Dtos.ProductInfo
 {
-    public class Categorycs : BaseEntity
+    public class UpdateProductInfoViewModel
     {
         public string? Name { get; set; }
         public EnumStatus Status { get; set; }

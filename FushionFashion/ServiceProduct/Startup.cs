@@ -43,6 +43,10 @@ namespace ServiceProduct
             // Add Object Services
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductInfoRepository, ProductInfoRepository>();
+            services.AddScoped<IProductInfoService, ProductInfoService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

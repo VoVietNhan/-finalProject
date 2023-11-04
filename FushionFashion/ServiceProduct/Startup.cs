@@ -47,6 +47,8 @@ namespace ServiceProduct
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductInfoRepository, ProductInfoRepository>();
             services.AddScoped<IProductInfoService, ProductInfoService>();
+            services.AddScoped<ISizeRepository, SizeRepository>();
+            services.AddScoped<ISizeService, SizeService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

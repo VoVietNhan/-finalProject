@@ -7,7 +7,9 @@ namespace ServiceProduct
     {
         public IProductRepository ProductRepository { get; }
         public ICategoryRepository CategoryRepository { get; }  
-        IProductInfoRepository ProductInfoRepository { get; }
+        public IProductInfoRepository ProductInfoRepository { get; }
+        public ISizeRepository SizeRepository { get; }
+
         public Task<int> SaveChangeAsync();
     }
 }

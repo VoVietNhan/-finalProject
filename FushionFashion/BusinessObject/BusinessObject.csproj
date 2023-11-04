@@ -8,6 +8,7 @@
     <Folder Include="Dtos\CartDetail\" />
     <Folder Include="Entities\Order\" />
     <Folder Include="Enum\" />
+    <Folder Include="Dtos\" />
   </ItemGroup>
 
   <ItemGroup>

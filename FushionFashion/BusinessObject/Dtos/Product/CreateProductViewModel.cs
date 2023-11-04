@@ -11,5 +11,7 @@ namespace BusinessObject.Dtos.Product
         public string? Image { get; set; }
         public decimal Price { get; set; }
         public EnumStatus Status { get; set; }
+        public Guid CategoryId { get; set; }
+ 
     }
 }

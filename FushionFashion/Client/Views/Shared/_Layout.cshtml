@@ -42,11 +42,9 @@
                                             <a href="index.html" class="item-anchor d-flex align-item-center" data-effect="Home">Home</a>
 
                                         </li>
-                                        <li class="menu-item has-sub">
-                                            <a href="shop.html" class="item-anchor active d-flex align-item-center" data-effect="Shop">Shop</a>
-                                            <ul class="submenu">
-                                                <li><a href="shop.html" class="item-anchor active">Shop</a></li>
-                                            </ul>
+                                        <li class="menu-item has-sub" >
+                                            <a asp-controller="Shop" asp-action="Index" class="item-anchor active d-flex align-item-center" data-effect="Shop">Shop</a>
+                                            
                                         </li>
 
                                         <li class="menu-item has-sub">
@@ -54,7 +52,7 @@
 
                                         </li>
 
-                                        <li><a href="contact.html" class="item-anchor" data-effect="Contact">Log In</a></li>
+                                        <li><a asp-controller="Authentication" asp-action="Login" class="item-anchor" data-effect="Contact">Log In</a></li>
                                         <li><a href="contact.html" class="item-anchor" data-effect="Contact">Log Out</a></li>
 
                                     </ul>

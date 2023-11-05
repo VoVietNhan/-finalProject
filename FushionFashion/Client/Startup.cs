@@ -52,7 +52,7 @@ namespace Client
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Shop}/{action=Index}/{id?}");
             });
         }
     }

@@ -199,7 +199,7 @@ namespace ServiceAuthentication.Controllers
         }
 
         [HttpGet("ResetPassword")]
-        public async Task<IActionResult> ResetPasswordUser(string email, string token)
+        public async Task<IActionResult> ResetPassword(string email, string token)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user != null)

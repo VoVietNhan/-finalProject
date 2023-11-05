@@ -6,6 +6,8 @@ using BusinessObject.Entities.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -78,7 +80,7 @@ namespace Client.Controllers
                     return RedirectToAction("Index", "Shop");
                 }
                 HttpContext.Session.SetString("JWT", token);
-            }
+			}
             _notyfService.Success("Login is success!");
             return RedirectToAction("Index", "Shop");
         }

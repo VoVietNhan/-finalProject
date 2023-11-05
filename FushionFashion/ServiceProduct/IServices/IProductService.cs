@@ -13,5 +13,7 @@ namespace ServiceProduct.IServices
         public Task<ProductViewModel> GetDisableProduct();
         public Task<UpdateProductViewModel?> UpdateProduct(Guid id, UpdateProductViewModel productDTO);
         Task<ProductViewModel> GetProductById(Guid id);
+        Task<ProductViewModel> GetProductByName(string name);
+
     }
 }

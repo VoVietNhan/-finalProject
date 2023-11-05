@@ -77,6 +77,18 @@ namespace ServiceProduct.Services
             return _mapper.Map<ProductViewModel>(product);
         }
 
+        public async Task<ProductViewModel> GetProductByName(string name)
+        {
+            var product = await _unitOfWork.ProductRepository.GetProductByName(name);
+
+            if (product == null)
+            {
+                return null;
+            }
+
+            return _mapper.Map<ProductViewModel>(product);
+        }
+
         public async Task<UpdateProductViewModel?> UpdateProduct(Guid id, UpdateProductViewModel productDTO)
         {
 

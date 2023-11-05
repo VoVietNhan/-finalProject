@@ -16,6 +16,7 @@ namespace ServiceProduct.Controllers
         {
             _categoryService = categoryService;
         }
+        
         [HttpGet("GetAllcategory")]
         public async Task<ActionResult<CategoryViewModel>> GetAllCategory()
         {
@@ -41,6 +42,7 @@ namespace ServiceProduct.Controllers
 
             return Ok(category);
         }
+
         [HttpPost("CreateCategory")]
         public async Task<ActionResult<CreateCategoryViewModel>> CreateProduct(CreateCategoryViewModel categoryViewModel)
         {
@@ -56,6 +58,18 @@ namespace ServiceProduct.Controllers
             return BadRequest("Invalid input or validation failed.");
         }
 
+        [HttpGet("GetCategoryByName/{name}")]
+        public async Task<IActionResult> GetCategoryByName(string name)
+        {
+            var category = await _categoryService.GetCategoryByName(name);
+
+            if (category == null)
+            {
+                return NotFound("No category found with the specified name.");
+            }
+
+            return Ok(category);
+        }
     }
 
 }

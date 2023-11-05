@@ -3,6 +3,8 @@ using ServiceProduct.IRepository;
 using ServiceProduct.IServices;
 using System.Threading.Tasks;
 using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ServiceProduct.Repository
 {
@@ -20,6 +22,12 @@ namespace ServiceProduct.Repository
             _claimService = claimService;
         }
 
-      
+        public async Task<Category> GetCategoryByName(string name)
+        {
+            var category = await _appDBContext.Categories
+        .Where(c => c.Name == name).FirstOrDefaultAsync();
+
+            return category;
+        }
     }
 }

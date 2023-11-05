@@ -48,5 +48,16 @@ namespace ServiceProduct.Services
             return _mapper.Map<CategoryViewModel>(category);
         }
 
+        public async Task<CategoryViewModel> GetCategoryByName(string name)
+        {
+            var category = await _unitOfWork.CategoryRepository.GetCategoryByName(name);
+
+            if (category == null)
+            {
+                return null;
+            }
+
+            return _mapper.Map<CategoryViewModel>(category);
+        }
     }
 }

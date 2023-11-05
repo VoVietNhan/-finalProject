@@ -10,7 +10,7 @@ using ServiceProduct;
 namespace ServiceProduct.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20231104100306_h")]
+    [Migration("20231105050024_h")]
     partial class h
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -238,7 +238,7 @@ namespace ServiceProduct.Migrations
                         .IsRequired();
 
                     b.HasOne("BusinessObject.Entities.Product.Size", "Size")
-                        .WithMany("ProductInfos")
+                        .WithMany()
                         .HasForeignKey("SizeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -254,11 +254,6 @@ namespace ServiceProduct.Migrations
                 });
 
             modelBuilder.Entity("BusinessObject.Entities.Product.Product", b =>
-                {
-                    b.Navigation("ProductInfos");
-                });
-
-            modelBuilder.Entity("BusinessObject.Entities.Product.Size", b =>
                 {
                     b.Navigation("ProductInfos");
                 });

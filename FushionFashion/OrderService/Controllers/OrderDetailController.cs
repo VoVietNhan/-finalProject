@@ -1,4 +1,5 @@
-﻿using BusinessObject.Entities;
+﻿using BusinessObject.Dtos.Order;
+using BusinessObject.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using OrderService.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace OrderService.Controllers
@@ -24,5 +26,19 @@ namespace OrderService.Controllers
             var orderDetailList = await _orderContext.OrderDetails.Where(x => x.OrderId == OrderId).ToListAsync();
             return orderDetailList;
         }
-    }
+        [HttpPost("CreateOrderDetail")]
+        public async Task CreateOrderDetail(List<OrderDetailsDTO> list)
+        {
+            foreach (var item in list)
+            {
+                var orderDetails = new OrderDetails();
+                orderDetails.OrderId = item.OrderId;
+                orderDetails.ProductId = item.ProductId;
+                orderDetails.Quantity = item.Quantity;
+                orderDetails.SizeId = item.SizeId;
+                await _orderContext.OrderDetails.AddAsync(orderDetails);
+                await _orderContext.SaveChangesAsync();
+            }
+        }
+     }
 }

@@ -144,8 +144,7 @@ namespace ServiceAuthentication.Controllers
 
                 return Ok(new
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(jwtToken),
-                    expiration = jwtToken.ValidTo
+                    token = new JwtSecurityTokenHandler().WriteToken(jwtToken)
                 });
             }
             return StatusCode(StatusCodes.Status401Unauthorized, new Response { Status = "Error", Message = "Email or password invalid!" });

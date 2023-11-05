@@ -18,8 +18,7 @@ namespace CartService.Controllers
     {
         private readonly CartContext _context;
         private readonly CartController cartController;
-        public CartDetailController(CartContext cartContext
-            ,CartController cartController) { 
+        public CartDetailController(CartContext cartContext) { 
             _context = cartContext;
         }
         [HttpGet]

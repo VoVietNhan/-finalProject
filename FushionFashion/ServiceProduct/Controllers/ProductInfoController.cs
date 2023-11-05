@@ -7,6 +7,7 @@ using ServiceProduct.IRepository;
 using ServiceProduct.IServices;
 using ServiceProduct.Services;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ServiceProduct.Controllers
@@ -73,7 +74,7 @@ namespace ServiceProduct.Controllers
 
 
         [HttpGet("GetProductInfoByProduct/{productId}")]
-        public async Task<ActionResult<ProductInfoViewModel>> GetProductInfoByProduct(Guid productId)
+        public async Task<ActionResult<List<ProductInfoViewModel>>> GetProductInfoByProduct(Guid productId)
         {
             var productInfo = await _productInfoRepository.GetProductInfoByProduct(productId);
 

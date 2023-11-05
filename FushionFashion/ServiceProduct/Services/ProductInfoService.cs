@@ -43,7 +43,7 @@ namespace ServiceProduct.Services
             var proinfo = await _unitOfWork.ProductInfoRepository.GetByIdAsync(id);
             proinfo.Status = EnumStatus.Enable;
             _unitOfWork.ProductInfoRepository.SoftRemove(proinfo);
-            _unitOfWork.SaveChangeAsync();
+            await _unitOfWork.SaveChangeAsync();
 
         }
 
@@ -53,15 +53,16 @@ namespace ServiceProduct.Services
             return _mapper.Map<List<ProductInfoViewModel>>(category);
         }
 
-        public async Task<ProductInfoViewModel> GetProductInfoByProduct(Guid productId)
+        public async Task<List<ProductInfoViewModel>> GetProductInfoByProduct(Guid productId)
         {
             var productInfo = await _unitOfWork.ProductInfoRepository.GetProductInfoByProduct(productId);
+
             if (productInfo == null)
             {
                 return null;
             }
 
-            return _mapper.Map<ProductInfoViewModel>(productInfo);
+            return _mapper.Map<List<ProductInfoViewModel>>(productInfo);
         }
 
 

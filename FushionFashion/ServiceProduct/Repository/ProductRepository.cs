@@ -28,6 +28,11 @@ namespace ServiceProduct.Repository
         {
             throw new NotImplementedException();
         }
+        public async Task<Product> GetById(Guid id)
+        {
+            var result = await _appDBContext.Products.Include(c=>c.Category).FirstOrDefaultAsync(x => x.Id == id);
+            return result;
+        }
 
         public async Task<Product> GetEnableProduct()
         {

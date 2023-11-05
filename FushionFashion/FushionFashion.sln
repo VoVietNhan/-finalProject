@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService", "OrderServic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{3404009E-DFEC-47F2-A9AB-89A95FF7C14F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{D320E6A3-626A-43F3-AB55-F5D7A25A5B48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{D320E6A3-626A-43F3-AB55-F5D7A25A5B48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{3E3D838D-D0B0-4097-B205-8C0B7E487B7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin", "Admin\Admin.csproj", "{3E3D838D-D0B0-4097-B205-8C0B7E487B7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

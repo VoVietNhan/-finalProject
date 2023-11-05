@@ -40,7 +40,7 @@ namespace ServiceProduct.Services
         {
             var size = await _unitOfWork.SizeRepository.GetByIdAsync(id);
              _unitOfWork.SizeRepository.SoftRemove(size);
-            _unitOfWork.SaveChangeAsync();
+            await _unitOfWork.SaveChangeAsync();
 
         }
 

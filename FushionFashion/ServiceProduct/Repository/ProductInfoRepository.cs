@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ServiceProduct.IRepository;
 using ServiceProduct.IServices;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,13 +23,12 @@ namespace ServiceProduct.Repository
             _claimService = claimService;
         }
 
-        public async Task<ProductInfo> GetProductInfoByProduct(Guid ProductId)
+        public async Task<List<ProductInfo>> GetProductInfoByProduct(Guid ProductId)
         {
-            var productInfo = await _appDBContext.ProductInfo
-                .FirstOrDefaultAsync(x => x.ProductId.Equals(ProductId));
+            var productInfo = await _appDBContext.ProductInfo.Where(x => x.ProductId.Equals(ProductId)).Include(c=>c.Size).ToListAsync();
+                
 
             return productInfo;
         }
-
     }
 }

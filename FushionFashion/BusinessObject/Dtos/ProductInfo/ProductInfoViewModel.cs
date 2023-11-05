@@ -12,6 +12,7 @@ namespace BusinessObject.Dtos.ProductInfo
         public Guid Id { get; set; }
         public int Quantity { get; set; }
         public Guid SizeId { get; set; }
+        public Size.SizeViewModel Size { get; set; }
         public Guid ProductId { get; set; }
         public EnumStatus Status { get; set; }
     }

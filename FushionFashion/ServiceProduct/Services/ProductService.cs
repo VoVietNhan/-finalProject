@@ -73,7 +73,7 @@ namespace ServiceProduct.Services
 
         public async Task<ProductViewModel> GetProductById(Guid id)
         {
-            var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
+            var product = await _unitOfWork.ProductRepository.GetById(id);
             return _mapper.Map<ProductViewModel>(product);
         }
 

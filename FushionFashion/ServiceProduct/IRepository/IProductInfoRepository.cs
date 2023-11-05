@@ -7,6 +7,6 @@ namespace ServiceProduct.IRepository
 {
     public interface IProductInfoRepository : IGenericRepository<ProductInfo>
     {
-        Task<ProductInfo> GetProductInfoByProduct(Guid ProductId);
+        Task<List<ProductInfo>> GetProductInfoByProduct(Guid ProductId);
     }
 }

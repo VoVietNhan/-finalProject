@@ -1,5 +1,7 @@
 ﻿using BusinessObject.Dtos.Category;
 using BusinessObject.Dtos.Product;
+using BusinessObject.Dtos.ProductInfo;
+using BusinessObject.Dtos.Size;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -12,6 +14,8 @@ namespace Client.Controllers
     {
         Uri cateUri = new Uri("https://localhost:44321/api/Category");
         Uri productUri = new Uri("https://localhost:44321/api/Product");
+        Uri infoUri = new Uri("https://localhost:44321/api/ProductInfo");
+        Uri size = new Uri("https://localhost:44321/api/Size/GetAllSize");
         private readonly HttpClient _client;
         public ShopController(HttpClient client) { 
             _client = client;
@@ -42,17 +46,22 @@ namespace Client.Controllers
         public IActionResult Details([FromQuery]Guid productId)
         {
             var product = new ProductViewModel();
+            var infoProduct = new List<ProductInfoViewModel>();
             HttpResponseMessage respone = _client.GetAsync(productUri + "/GetProductById" + $"/{productId}").Result;
+            HttpResponseMessage infoRespone = _client.GetAsync(infoUri+ "/GetProductInfoByProduct" + $"/{productId}").Result; 
             if (respone.IsSuccessStatusCode)
             {
                 string data = respone.Content.ReadAsStringAsync().Result;
                 product = JsonConvert.DeserializeObject<ProductViewModel>(data);
-
             }
+            if(infoRespone.IsSuccessStatusCode)
+            {
+                string infoData = infoRespone.Content.ReadAsStringAsync().Result;
+				infoProduct = JsonConvert.DeserializeObject<List<ProductInfoViewModel>>(infoData);
+            }
+            ViewBag.info = infoProduct;
             return View(product);
         }
-        public IActionResult Login() {
-            return View();
-                }
+        
     }
 }

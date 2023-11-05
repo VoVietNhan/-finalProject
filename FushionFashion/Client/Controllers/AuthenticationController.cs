@@ -23,6 +23,7 @@ namespace Client.Controllers
         private readonly INotyfService _notyfService;
         private readonly HttpClient client;
         private readonly string AuthenticationApiUrl;
+        private readonly string CartApiUrl;
 
         public AuthenticationController(INotyfService notyfService)
         {
@@ -31,6 +32,7 @@ namespace Client.Controllers
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);
             AuthenticationApiUrl = "https://localhost:5001/api/Authentication";
+            CartApiUrl = "";
         }
 
 		public IActionResult Register()
@@ -61,7 +63,9 @@ namespace Client.Controllers
         {
             return View();
         }
-
+        public IActionResult ChangePassword() {
+            return View();
+        }
 		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginDtos loginDtos)
@@ -79,6 +83,7 @@ namespace Client.Controllers
                     _notyfService.Error("Email or password is invalid!");
                     return RedirectToAction("Index", "Shop");
                 }
+                HttpContext.Session.SetString("Email", loginDtos.Email);
                 HttpContext.Session.SetString("JWT", token);
 			}
             _notyfService.Success("Login is success!");

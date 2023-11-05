@@ -63,22 +63,13 @@ namespace Client.Controllers
                 string infoData = infoRespone.Content.ReadAsStringAsync().Result;
 				infoProduct = JsonConvert.DeserializeObject<List<ProductInfoViewModel>>(infoData);
             }
-             // Lấy token từ phiên
-            string token = HttpContext.Session.GetString("JWT");
-
-            // Xác thực token JWT
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenS = tokenHandler.ReadJwtToken(token);
-
-            // Trích xuất thông tin người dùng từ token
-            var userIdClaim = tokenS.Claims.FirstOrDefault(claim => claim.Type == "UserId");
-            if (userIdClaim != null)
-            {
-                string userId = userIdClaim.Value;
-                // Sử dụng userId theo nhu cầu của bạn
-            }
             ViewBag.info = infoProduct;
             return View(product);
+        }
+        [HttpPost]
+        public IActionResult Details()
+        {
+            return View();
         }
         
     }

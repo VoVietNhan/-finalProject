@@ -2,10 +2,13 @@
 using BusinessObject.Dtos.Product;
 using BusinessObject.Dtos.ProductInfo;
 using BusinessObject.Dtos.Size;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net.Http;
 
 namespace Client.Controllers
@@ -38,6 +41,7 @@ namespace Client.Controllers
                 string catedata = cateRes.Content.ReadAsStringAsync().Result;
                 cateList = JsonConvert.DeserializeObject<List<CategoryViewModel>>(catedata);
             }
+           
             ViewBag.cate = cateList;
             ViewBag.product = productList;
             return View();
@@ -58,6 +62,20 @@ namespace Client.Controllers
             {
                 string infoData = infoRespone.Content.ReadAsStringAsync().Result;
 				infoProduct = JsonConvert.DeserializeObject<List<ProductInfoViewModel>>(infoData);
+            }
+             // Lấy token từ phiên
+            string token = HttpContext.Session.GetString("JWT");
+
+            // Xác thực token JWT
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenS = tokenHandler.ReadJwtToken(token);
+
+            // Trích xuất thông tin người dùng từ token
+            var userIdClaim = tokenS.Claims.FirstOrDefault(claim => claim.Type == "UserId");
+            if (userIdClaim != null)
+            {
+                string userId = userIdClaim.Value;
+                // Sử dụng userId theo nhu cầu của bạn
             }
             ViewBag.info = infoProduct;
             return View(product);

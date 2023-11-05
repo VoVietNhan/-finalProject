@@ -9,6 +9,6 @@ namespace BusinessObject.Entities.Product
     public class Size : BaseEntity
     {
         public string? ProSize { get; set; }
-        public ICollection<ProductInfo> ProductInfos { get; set; } = new List<ProductInfo>();
+
     }
 }

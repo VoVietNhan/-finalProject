@@ -236,7 +236,7 @@ namespace ServiceProduct.Migrations
                         .IsRequired();
 
                     b.HasOne("BusinessObject.Entities.Product.Size", "Size")
-                        .WithMany("ProductInfos")
+                        .WithMany()
                         .HasForeignKey("SizeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -252,11 +252,6 @@ namespace ServiceProduct.Migrations
                 });
 
             modelBuilder.Entity("BusinessObject.Entities.Product.Product", b =>
-                {
-                    b.Navigation("ProductInfos");
-                });
-
-            modelBuilder.Entity("BusinessObject.Entities.Product.Size", b =>
                 {
                     b.Navigation("ProductInfos");
                 });

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessObject.Dtos.Account;
 using BusinessObject.Dtos.Category;
 using BusinessObject.Dtos.Product;
 using BusinessObject.Dtos.ProductInfo;
@@ -7,6 +8,7 @@ using BusinessObject.Enum.EnumStatus;
 using ServiceProduct.IServices;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ServiceProduct.Services
@@ -40,7 +42,7 @@ namespace ServiceProduct.Services
         {
             var proinfo = await _unitOfWork.ProductInfoRepository.GetByIdAsync(id);
             proinfo.Status = EnumStatus.Enable;
-            _unitOfWork.ProductInfoRepository.Update(proinfo);
+            _unitOfWork.ProductInfoRepository.SoftRemove(proinfo);
             _unitOfWork.SaveChangeAsync();
 
         }
@@ -50,6 +52,19 @@ namespace ServiceProduct.Services
             var category = await _unitOfWork.ProductInfoRepository.GetAllAsync();
             return _mapper.Map<List<ProductInfoViewModel>>(category);
         }
+
+        public async Task<ProductInfoViewModel> GetProductInfoByProduct(Guid productId)
+        {
+            var productInfo = await _unitOfWork.ProductInfoRepository.GetProductInfoByProduct(productId);
+            if (productInfo == null)
+            {
+                return null;
+            }
+
+            return _mapper.Map<ProductInfoViewModel>(productInfo);
+        }
+
+
 
         public async Task<UpdateProductInfoViewModel> UpdateProductInfo(Guid id, UpdateProductInfoViewModel proinfoDTO)
         {
@@ -71,5 +86,7 @@ namespace ServiceProduct.Services
 
             return null;
         }
+
+      
     }
 }

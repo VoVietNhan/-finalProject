@@ -9,6 +9,7 @@ namespace BusinessObject.Dtos.ProductInfo
 {
     public class ProductInfoViewModel
     {
+        public Guid Id { get; set; }
         public int Quantity { get; set; }
         public Guid SizeId { get; set; }
         public Guid ProductId { get; set; }

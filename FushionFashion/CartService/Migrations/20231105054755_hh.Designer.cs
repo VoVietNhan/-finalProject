@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CartService.Migrations
 {
     [DbContext(typeof(CartContext))]
-    [Migration("20231102114003_Initial")]
-    partial class Initial
+    [Migration("20231105054755_hh")]
+    partial class hh
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

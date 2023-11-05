@@ -47,7 +47,7 @@
                                             <a asp-controller="Shop" asp-action="Index" class="item-anchor active d-flex align-item-center" data-effect="Shop">Shop</a>
                                         </li>
                                         <li class="menu-item has-sub">
-                                            <a href="blog.html" class="item-anchor d-flex align-item-center" data-effect="Blog">Add To Cart</a>
+                                            <a <a asp-controller="Cart" asp-action="Index" class="item-anchor d-flex align-item-center" data-effect="Blog">Cart</a>
                                         </li>
                                         @if (Context.Session.GetString("JWT") == null)
                                         {

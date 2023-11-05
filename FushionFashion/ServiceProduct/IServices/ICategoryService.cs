@@ -10,5 +10,6 @@ namespace ServiceProduct.IServices
         Task<List<CategoryViewModel>> GetCategory();
         public Task<CreateCategoryViewModel?> CreateCategory(CreateCategoryViewModel categoryDTO);
         Task<CategoryViewModel> GetCategoryById(Guid id);
+        Task<CategoryViewModel> GetCategoryByName(string name);
     }
 }

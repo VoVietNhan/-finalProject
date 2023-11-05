@@ -103,5 +103,18 @@ namespace ServiceProduct.Controllers
 
             return Ok(productViewModels);
         }
+
+        [HttpGet("GetProductByName/{name}")]
+        public async Task<IActionResult> GetProductByName(string name)
+        {
+            var productViewModel = await _productService.GetProductByName(name);
+
+            if (productViewModel == null)
+            {
+                return BadRequest("No product found with the specified name.");
+            }
+
+            return Ok(productViewModel);
+        }
     }
 }

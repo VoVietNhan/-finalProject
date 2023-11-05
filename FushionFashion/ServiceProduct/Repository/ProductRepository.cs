@@ -10,7 +10,7 @@ using ServiceProduct.IServices;
 
 namespace ServiceProduct.Repository
 {
-    public class ProductRepository: GenericRepository<Product>, IProductRepository
+    public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
         private readonly DBContext _appDBContext;
         private ICurrentTime _timeService;
@@ -46,6 +46,15 @@ namespace ServiceProduct.Repository
 
             return disableProduct;
 
+        }
+
+        public async Task<Product> GetProductByName(string name)
+        {
+            var product = await _appDBContext.Products
+        .Where(p => p.Name == name)
+        .FirstOrDefaultAsync();
+
+            return product;
         }
     }
 }

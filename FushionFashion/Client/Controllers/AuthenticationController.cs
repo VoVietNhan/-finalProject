@@ -5,6 +5,7 @@ using BusinessObject.Entities.Account;
 using BusinessObject.Entities.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -35,7 +36,21 @@ namespace Client.Controllers
             CartApiUrl = "";
         }
 
-		public IActionResult Register()
+        public async Task<IActionResult> Profile()
+        {
+            var email = HttpContext.Session.GetString("Email");
+            HttpResponseMessage response = await client.GetAsync($"{AuthenticationApiUrl + "/GetUserByEmail"}/{email}");
+            string strData = await response.Content.ReadAsStringAsync();
+
+            var option = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
+            var user = JsonSerializer.Deserialize<UserDtos>(strData, option);
+            return View(user);
+        }
+
+        public IActionResult Register()
 		{
 			return View();
 		}
@@ -85,14 +100,15 @@ namespace Client.Controllers
                 }
                 HttpContext.Session.SetString("Email", loginDtos.Email);
                 HttpContext.Session.SetString("JWT", token);
-			}
+            }
             _notyfService.Success("Login is success!");
             return RedirectToAction("Index", "Shop");
         }
 
         public IActionResult Logout()
         {
-            HttpContext.Session.Remove("JWT");
+            HttpContext.Session.Clear();
+            //HttpContext.Session.Remove("JWT");
             _notyfService.Success("Logout is success!");
             return RedirectToAction("Index", "Shop");
         }

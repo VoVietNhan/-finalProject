@@ -1,9 +1,13 @@
+using AspNetCoreHero.ToastNotification;
+using BusinessObject.Entities.Account;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ServiceAuthentication.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +29,21 @@ namespace Client
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddHttpClient();
+            services.AddNotyf(options =>
+            {
+                options.DurationInSeconds = 10;
+                options.IsDismissable = true;
+                options.Position = NotyfPosition.TopRight;
+            });
             services.AddControllersWithViews();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+            });
+            services.AddDbContext<AppDBContext>();
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDBContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +63,8 @@ namespace Client
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 

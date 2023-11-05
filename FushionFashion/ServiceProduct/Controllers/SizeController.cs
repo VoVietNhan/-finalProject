@@ -21,7 +21,7 @@ namespace ServiceProduct.Controllers
         }
 
         [HttpGet("GetAllSize")]
-        public async Task<ActionResult<SizeViewModel>> GetAllProduct()
+        public async Task<ActionResult<SizeViewModel>> GetAllSize()
         {
             var product = await _sizeService.GetSize();
 
@@ -35,12 +35,12 @@ namespace ServiceProduct.Controllers
 
 
         [HttpPost("CreateSize")]
-        public async Task<ActionResult<CreateSizeViewModel>> CreateProduct(CreateSizeViewModel sizeDTO)
+        public async Task<ActionResult<CreateSizeViewModel>> CreateSize(CreateSizeViewModel sizeViewModel)
         {
-            if (sizeDTO != null)
+            if (ModelState.IsValid)
             {
 
-                await _sizeService.CreateSize(sizeDTO);
+                await _sizeService.CreateSize(sizeViewModel);
 
                 return Ok("Created a new size successfully.");
 

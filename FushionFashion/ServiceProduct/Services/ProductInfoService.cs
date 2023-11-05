@@ -23,11 +23,11 @@ namespace ServiceProduct.Services
             _mapper = mapper;
             _claimService = claimService;
         }
-        public async Task<CreateProductInfoViewModel> CreateProductInfo(CreateProductInfoViewModel proinfoDTO)
+        public async Task<CreateProductInfoViewModel?> CreateProductInfo(CreateProductInfoViewModel proinfoDTO)
         {
-            var proinfo = _mapper.Map<Category>(proinfoDTO);
+            var proinfo = _mapper.Map<ProductInfo>(proinfoDTO);
             proinfoDTO.Status = EnumStatus.Enable;
-            await _unitOfWork.CategoryRepository.AddAsync(proinfo);
+            await _unitOfWork.ProductInfoRepository.AddAsync(proinfo);
             var isSuccess = await _unitOfWork.SaveChangeAsync() > 0;
             if (isSuccess)
             {

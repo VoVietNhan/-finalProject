@@ -2,6 +2,7 @@
 using BusinessObject.Dtos.Product;
 using BusinessObject.Dtos.Size;
 using BusinessObject.Entities.Product;
+using BusinessObject.Enum.EnumStatus;
 using Microsoft.AspNetCore.SignalR;
 using ServiceProduct.IServices;
 using System;
@@ -16,7 +17,14 @@ namespace ServiceProduct.Services
         private readonly IMapper _mapper;
         private readonly IClaimService _claimService;
 
-        public async Task<CreateSizeViewModel> CreateSize(CreateSizeViewModel sizeDTO)
+        public SizeService(IUnitOfWork unitOfWork, IMapper mapper, IClaimService claimService)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _claimService = claimService;
+        }
+
+        public async Task<CreateSizeViewModel?> CreateSize(CreateSizeViewModel sizeDTO)
         {
             var size = _mapper.Map<Size>(sizeDTO);
             await _unitOfWork.SizeRepository.AddAsync(size);
@@ -31,7 +39,7 @@ namespace ServiceProduct.Services
         public async Task DeleteSize(Guid id)
         {
             var size = await _unitOfWork.SizeRepository.GetByIdAsync(id);
-            _unitOfWork.SizeRepository.Update(size);
+             _unitOfWork.SizeRepository.SoftRemove(size);
             _unitOfWork.SaveChangeAsync();
 
         }

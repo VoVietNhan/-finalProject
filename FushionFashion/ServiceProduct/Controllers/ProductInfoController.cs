@@ -21,7 +21,7 @@ namespace ServiceProduct.Controllers
             _productInfoRepository = productInfoService;
         }
 
-        [HttpGet("GetAllcategory")]
+        [HttpGet("GetAllProductInfo")]
         public async Task<ActionResult<ProductInfoViewModel>> GetAllInfo()
         {
             var product = await _productInfoRepository.GetProductInfo();
@@ -35,7 +35,7 @@ namespace ServiceProduct.Controllers
         }
 
         [HttpPost("CreateProductInfo")]
-        public async Task<ActionResult<CreateProductInfoViewModel>> CreateProduct(CreateProductInfoViewModel productInfoViewModel)
+        public async Task<ActionResult<CreateProductInfoViewModel?>> CreateProduct(CreateProductInfoViewModel productInfoViewModel)
         {
             if (ModelState.IsValid)
             {

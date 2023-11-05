@@ -51,10 +51,10 @@ namespace ServiceAuthentication.Controllers
             return _mapper.Map<List<UserDtos>>(users);
         }
 
-        [HttpGet("GetUserById/{userId}")]
-        public async Task<ActionResult<UserDtos>> GetUserById(string userId)
+        [HttpGet("GetUserByEmail/{email}")]
+        public async Task<ActionResult<UserDtos>> GetUserByEmail(string email)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
                 return NotFound("User doesn't exists!");
@@ -65,7 +65,7 @@ namespace ServiceAuthentication.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser(RegisterDtos registerDtos)
         {
-            var userExits = await _userManager.FindByEmailAsync(registerDtos.Username);
+            var userExits = await _userManager.FindByEmailAsync(registerDtos.Email);
             if (userExits != null)
             {
                 return StatusCode(StatusCodes.Status403Forbidden, new Response { Status = "Error", Message = "User already exists!" });
@@ -73,8 +73,8 @@ namespace ServiceAuthentication.Controllers
 
             AppUser user = new()
             {
-                UserName = registerDtos.Username,
-                Email = registerDtos.Username,
+                UserName = registerDtos.Email,
+                Email = registerDtos.Email,
                 Fullname = registerDtos.Fullname,
                 PhoneNumber = registerDtos.Phone,
                 Address = registerDtos.Address,
@@ -118,7 +118,7 @@ namespace ServiceAuthentication.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> LoginUser(LoginDtos loginDtos)
         {
-            var user = await _userManager.FindByEmailAsync(loginDtos.Username);
+            var user = await _userManager.FindByEmailAsync(loginDtos.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, loginDtos.Password))
             {
                 if (!await _userManager.IsEmailConfirmedAsync(user))
@@ -127,10 +127,15 @@ namespace ServiceAuthentication.Controllers
                 }
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, loginDtos.Username),
+                {                 
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
+                    new Claim("Id", user.Id.ToString()),
+					new Claim("Fullname", user.Fullname),
+					new Claim("Email", user.Email),
+					new Claim("PhoneNumber", user.PhoneNumber),
+					new Claim("Address", user.Address),
+					new Claim("Status", user.Status.ToString())
+				};
                 foreach (var role in userRoles)
                 {
                     authClaims.Add(new Claim(ClaimTypes.Role, role));
@@ -163,7 +168,7 @@ namespace ServiceAuthentication.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePasswordUser(ChangePassword changePassword)
         {
-            var user = await _userManager.FindByEmailAsync(changePassword.Username);
+            var user = await _userManager.FindByEmailAsync(changePassword.Email);
             if (user == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = "User doesn't exists!" });

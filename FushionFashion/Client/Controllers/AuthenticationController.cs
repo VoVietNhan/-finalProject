@@ -25,8 +25,11 @@ namespace Client.Controllers
         {
             return View();
         }
-
-        [HttpPost]
+        public IActionResult Register()
+        {
+            return View();
+        }
+		[HttpPost]
         public async Task<IActionResult> Login(LoginDtos loginDtos)
         {
             if (ModelState.IsValid)

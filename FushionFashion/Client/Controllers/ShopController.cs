@@ -51,5 +51,8 @@ namespace Client.Controllers
             }
             return View(product);
         }
+        public IActionResult Login() {
+            return View();
+                }
     }
 }

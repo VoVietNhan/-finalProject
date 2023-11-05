@@ -38,7 +38,7 @@ namespace Client.Controllers
 
         public async Task<IActionResult> Profile()
         {
-            var email = HttpContext.Session.GetString("UserEmail");
+            var email = HttpContext.Session.GetString("Email");
             HttpResponseMessage response = await client.GetAsync($"{AuthenticationApiUrl + "/GetUserByEmail"}/{email}");
             string strData = await response.Content.ReadAsStringAsync();
 
@@ -100,7 +100,6 @@ namespace Client.Controllers
                 }
                 HttpContext.Session.SetString("Email", loginDtos.Email);
                 HttpContext.Session.SetString("JWT", token);
-                HttpContext.Session.SetString("UserEmail", loginDtos.Email);
             }
             _notyfService.Success("Login is success!");
             return RedirectToAction("Index", "Shop");

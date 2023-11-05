@@ -70,5 +70,20 @@ namespace ServiceProduct.Controllers
 
         [HttpDelete("DeleteProductInfo")]
         public async Task DeleteProduct(Guid id) => await _productInfoRepository.DeleteProductInfo(id);
+
+
+        [HttpGet("GetProductInfoByProduct/{productId}")]
+        public async Task<ActionResult<ProductInfoViewModel>> GetProductInfoByProduct(Guid productId)
+        {
+            var productInfo = await _productInfoRepository.GetProductInfoByProduct(productId);
+
+            if (productInfo == null)
+            {
+                return NotFound("Product with the specified ID not found");
+            }
+
+            return Ok(productInfo);
+        }
+
     }
 }

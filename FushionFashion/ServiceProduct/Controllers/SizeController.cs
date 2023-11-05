@@ -69,6 +69,19 @@ namespace ServiceProduct.Controllers
         }
 
         [HttpDelete("DeleteSize")]
-        public async Task DeleteSize(Guid id) => await _sizeService.DeleteSize(id);
+        public async Task<IActionResult> DeleteSize(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                // Use await to asynchronously execute the task
+                await _sizeService.DeleteSize(id);
+
+                // If the method is void, you can simply proceed with the response
+                return NoContent();
+            }
+
+            // Return BadRequest if ModelState is not valid
+            return BadRequest("Remove Size Failed");
+        }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CartService.Migrations
 {
-    public partial class Initial : Migration
+    public partial class hh : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

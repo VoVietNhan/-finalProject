@@ -9,7 +9,9 @@ namespace BusinessObject.Dtos.ProductInfo
 {
     public class UpdateProductInfoViewModel
     {
-        public string? Name { get; set; }
+        public int Quantity { get; set; }
+        public Guid SizeId { get; set; }
+        public Guid ProductId { get; set; }
         public EnumStatus Status { get; set; }
     }
 }

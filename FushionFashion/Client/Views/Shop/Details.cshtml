@@ -263,20 +263,22 @@
                 @Model.Description
             </p>
             <!--size-->
-
+            @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+{
                 <div class="product-size-container">
                     <strong>Select Size:-</strong>
                     <div class="product-size">
                         @if (ViewBag.info != null)
                         {
+                            <select name ="productInfoId">
                             @foreach (var item in ViewBag.info)
                             {
                                 @if (item.Quantity > 0)
                                 {
-                                <input type="checkbox" class="s-checkbox" id="size-@item.Size.ProSize" data-productId="@Model.Id" data-sizeId="@item.Size.Id">
-                                <label for="s-xl" class="s-label">@item.Size.ProSize</label>
+                                    <option value="@item.Id">@item.Size.ProSize</option>
                                 }
                             }
+                        </select>
                         }
 
                     </div>
@@ -284,9 +286,9 @@
 
                 <!--btn-->
                 <div class="product-button">
-                    <a href="#" onclick="redirectToCart(@Model.Id)" class="add-bag-btn">Add To Cart</a>
+                    <button type="submit"  class="add-bag-btn">Add To Cart</button>
                 </div>
-
+            }
             <!--help-btn-->
             <a href="#" class="help-btn">Need Any Help?</a>
         </div>
@@ -304,46 +306,24 @@
 
 <!-- Initialize Swiper -->
 <script>
-    function redirectToCart(productId) {
-        window.location.href = '/Cart?productId=' + productId;
-    }
+    <script>
+        function redirectToCart(productId) {
+            // Get the selected value from the dropdown
+            var selectedSize = $("#selectedSize").val();
 
-    // Add a click event listener to the "Add To Cart" button
-    document.querySelector('.add-bag-btn').addEventListener('click', function () {
-        var selectedProductIds = [];
-        var selectedSizeIds = [];
-
-        // Select all the checkboxes that are checked
-        var checkboxes = document.querySelectorAll('.s-checkbox:checked');
-        checkboxes.forEach(function (checkbox) {
-            selectedProductIds.push(checkbox.getAttribute('data-productId'));
-            selectedSizeIds.push(checkbox.getAttribute('data-sizeId'));
-        });
-
-        // Send the selectedProductIds and selectedSizeIds to the server using AJAX
-        var data = {
-            productIds: selectedProductIds,
-            sizeIds: selectedSizeIds
-        };
-
-        // Make an AJAX POST request to your cart controller action
-        fetch('/Cart/AddToCart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => {
-                if (response.ok) {
-                    // Handle a successful response (if needed)
-                } else {
-                    // Handle an error response (if needed)
+            // Make an Ajax request to the controller to send the selected size
+            $.ajax({
+                type: "POST",
+                url: "/YourControllerName/YourActionName", // Replace with your controller and action names
+                data: { productId: productId, selectedSize: selectedSize },
+                success: function (response) {
+                    // Handle the response from the server if needed
+                },
+                error: function (error) {
+                    // Handle any errors that occur during the Ajax request
                 }
-            })
-            .catch(error => {
-                // Handle any network errors (if needed)
             });
-    });
+        }
+</script>
 </script>
 

@@ -13,7 +13,8 @@ namespace ServiceProduct.IServices
         public Task<CreateProductInfoViewModel?> CreateProductInfo(CreateProductInfoViewModel proinfoDTO);
         Task DeleteProductInfo(Guid id);
         public Task<UpdateProductInfoViewModel?> UpdateProductInfo(Guid id, UpdateProductInfoViewModel proinfoDTO);
-        Task<List<ProductInfoViewModel>?> GetProductInfoByProduct(Guid productId);
+        Task<List<ProductInfoViewModel>?> GetListProductInfoByProduct(Guid productId);
+        Task<ProductInfoViewModel?> GetProductInfoById(Guid productId);
 
     }
 }

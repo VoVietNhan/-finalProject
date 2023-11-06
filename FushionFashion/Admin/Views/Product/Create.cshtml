@@ -1,0 +1,44 @@
+﻿@model BusinessObject.Dtos.Product.ProductViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="m-0 font-weight-bold text-primary">Manage Product Detail</h2>
+    </div>
+
+    <div class="card-body row">
+        <div class="col-md-4 table-responsive">
+            <form asp-action="Create" asp-controller="Product">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+                <a class="btn btn-outline-danger" asp-controller="Product" asp-action="Index">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>

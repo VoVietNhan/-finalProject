@@ -1,1 +1,81 @@
-﻿
+﻿@model IEnumerable<BusinessObject.Dtos.Product.ProductViewModel>
+
+@{
+    Layout = "_Layout";
+}
+<!-- DataTales Example -->
+<div>
+    <div>
+        <nav class="breadcrumb breadcrumb-dash">
+            <a class="breadcrumb-item" asp-controller="Admin" asp-action="Index"><i class="fas fa-fw fa-home"></i>Home</a>
+            <span class="breadcrumb-item active">Manage Accounts</span>
+        </nav>
+    </div>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="m-0 font-weight-bold text-primary">Manage Accounts</h2>
+    </div>
+    <div class="col-lg-10" style="padding-top: 15px;">
+        <div class="d-md-flex" style="padding-left: 8px;">
+            <div class="m-b-10 m-r-15">
+                <select class="custom-select" id="idrole" name="idrole" style="min-width: 190px;" asp-items="ViewBag.QuyenTruyCap">
+                    <option value="0" disabled selected>Choose Access</option>
+                    <option value="">All</option>
+                </select>
+            </div>
+            @* <div class="col-lg-12 text-right">
+            <a class="btn btn-outline-primary" asp-controller="AdminAccounts" asp-action="Create">
+            <i class="fas fa-fw fa-plus-circle"></i>
+            <span>Create Account</span>
+            </a>
+            </div> *@
+        </div>
+    </div>
+
+    <div class="card-body">
+        <a class="btn btn-outline-primary" asp-controller="Product" asp-action="Create">Create</a>
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>@item.Image</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    <a class="btn btn-outline-primary" asp-controller="Product" asp-action="Details" asp-route-id="@item.Id">View</a>
+                                    <a class="btn btn-outline-primary" asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id">View</a>
+
+                                </td>   
+                                @*  <td>
+                        <a class="btn btn-outline-primary" asp-controller="User" asp-action="Details" asp-route-email="@item.Email">View</a>
+                        </td> *@
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@* <script>
+    function redirectToEdit(email) {
+        window.location.href = '/User/Edit?email=' + email;
+    }
+</script> *@

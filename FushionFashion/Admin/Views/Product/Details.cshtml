@@ -1,0 +1,36 @@
+﻿@model BusinessObject.Dtos.Product.ProductViewModel
+@{
+    Layout = "_Layout";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="m-0 font-weight-bold text-primary">Manage Product Detail</h2>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-striped" id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                    <td class="col-sm-2">Name</td>
+                    <td class="col-sm-10">@Model.Name</td>
+                </tr>
+                <tr>
+                    <td class="col-sm-2">Description</td>
+                    <td class="col-sm-10">@Model.Description</td>
+                </tr>
+                <tr>
+                    <td class="col-sm-2">Price</td>
+                    <td class="col-sm-10">@Model.Price</td>
+                </tr>
+                <tr>
+                    <td class="col-sm-2">Image</td>
+                    <td class="col-sm-10">@Model.Image</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <a class="btn btn-outline-primary" asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <a class="btn btn-outline-danger" asp-controller="Product" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>

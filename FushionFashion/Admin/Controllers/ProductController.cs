@@ -1,37 +1,71 @@
-﻿using BusinessObject.Dtos.Order;
+﻿using BusinessObject.Dtos.Account;
+using BusinessObject.Dtos.Order;
 using BusinessObject.Dtos.Product;
 using BusinessObject.Entities;
+using BusinessObject.Entities.Product;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Admin.Controllers
 {
     public class ProductController : Controller
     {
-        Uri productUri = new Uri("https://localhost:44321/api/Product");
         private readonly HttpClient _client;
-        public ProductController(HttpClient client)
-        {
-            _client = client;
-        }
-        public IActionResult Index()
-        {
-            List<ProductViewModel> productList = new List<ProductViewModel>();
+        private readonly string productUri;
 
-            HttpResponseMessage respone = _client.GetAsync(productUri + "/GetAllProduct").Result;
-            if (respone.IsSuccessStatusCode)
+        public ProductController()
+        {
+            _client = new HttpClient();
+            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+            _client.DefaultRequestHeaders.Accept.Add(contentType);
+            productUri = "https://localhost:44321/api/Product";
+        }
+        public async Task<IActionResult> Index()
+        {
+            HttpResponseMessage response = await _client.GetAsync(productUri + "/GetAllProduct");
+            string strData = await response.Content.ReadAsStringAsync();
+
+            var option = new JsonSerializerOptions
             {
-                string products = respone.Content.ReadAsStringAsync().Result;
-                productList = JsonConvert.DeserializeObject<List<ProductViewModel>>(products);
-            }
-            ViewBag.product = productList;
-            return View();
+                PropertyNameCaseInsensitive = true,
+            };
+            var product = System.Text.Json.JsonSerializer.Deserialize<List<ProductViewModel>>(strData, option);
+            return View(product);
         }
 
+        public async Task<IActionResult> Details(Guid id)
+        {
+            HttpResponseMessage response = await _client.GetAsync(productUri + "/GetProductById/" + id);
+            string strData = await response.Content.ReadAsStringAsync();
 
+            var option = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
+            var Product = JsonSerializer.Deserialize<ProductViewModel>(strData, option);
+            return View(Product);
+        }
+
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            HttpResponseMessage response = await _client.GetAsync(productUri + "/GetProductById/" + id);
+            string strData = await response.Content.ReadAsStringAsync();
+
+            var option = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
+            var Product = JsonSerializer.Deserialize<ProductViewModel>(strData, option);
+            return View(Product);
+        }
         [HttpGet]
         public IActionResult Create()
         {
@@ -39,15 +73,33 @@ namespace Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ProductViewModel product)
+        public async Task<IActionResult> Create(ProductViewModel model)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
-            }
+                var product = new Product
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    Image = model.Image,
+                    Price = model.Price
+                };
 
-            
-            return View(product);
+                var productJson = JsonSerializer.Serialize(product);
+                var content = new StringContent(productJson, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _client.PostAsync(productUri + "/CreateProduct", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Có lỗi khi tạo sản phẩm. Vui lòng thử lại.");
+                }
+            }
+            return View(model);
         }
 
     }

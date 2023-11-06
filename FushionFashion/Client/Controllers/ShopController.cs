@@ -27,15 +27,15 @@ namespace Client.Controllers
 
         public IActionResult Index()
         {
-            /*List<CategoryViewModel>  cateList = new List<CategoryViewModel>();
+            List<CategoryViewModel> cateList = new List<CategoryViewModel>();
             List<ProductViewModel> productList = new List<ProductViewModel>();
-            //HttpResponseMessage cateRes = _client.GetAsync(cateUri + "/GetAllcategory").Result;
+            HttpResponseMessage cateRes = _client.GetAsync(cateUri + "/GetAllcategory").Result;
 
-            //HttpResponseMessage respone = _client.GetAsync(productUri+ "/GetAllProduct").Result;
+            HttpResponseMessage respone = _client.GetAsync(productUri+ "/GetAllProduct").Result;
             if (respone.IsSuccessStatusCode)
             {
                 string data = respone.Content.ReadAsStringAsync().Result;
-                productList = JsonConvert.DeserializeObject<List<ProductViewModel>>(data);  
+                productList = JsonConvert.DeserializeObject<List<ProductViewModel>>(data);
 
             }
             if (cateRes.IsSuccessStatusCode)
@@ -43,10 +43,10 @@ namespace Client.Controllers
                 string catedata = cateRes.Content.ReadAsStringAsync().Result;
                 cateList = JsonConvert.DeserializeObject<List<CategoryViewModel>>(catedata);
             }
-           
+
             ViewBag.cate = cateList;
             ViewBag.product = productList;
-            return View();*/
+            return View();
         }
         
         public IActionResult Details([FromQuery]Guid productId)

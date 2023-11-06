@@ -141,17 +141,24 @@ namespace Client.Controllers
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await client.PostAsync(AuthenticationApiUrl + "/Login", content);
-
+                
                 string token = await response.Content.ReadAsStringAsync();
                 if (token == "{\"status\":\"Error\",\"message\":\"Email or password invalid!\"}")
                 {
                     _notyfService.Error("Email or password is invalid!");
                     return RedirectToAction("Index", "Shop");
                 }
+                if (token == "{\"status\":\"Error\",\"message\":\"Account had been block!\"}")
+                {
+                    _notyfService.Error("Your account had been locked!");
+                    return RedirectToAction("Index", "Shop");
+                }
                 HttpContext.Session.SetString("Email", loginDtos.Email);
                 HttpContext.Session.SetString("JWT", token);
+                _notyfService.Success("Login is successfully!");
+                return RedirectToAction("Index", "Shop");
             }
-            _notyfService.Success("Login is success!");
+            _notyfService.Error("Login is faied!");
             return RedirectToAction("Index", "Shop");
         }
 

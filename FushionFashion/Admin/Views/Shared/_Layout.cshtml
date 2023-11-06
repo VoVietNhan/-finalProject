@@ -64,6 +64,12 @@
                     </div>
                 </div>
             </li>
+            <li class="nav-item">
+                <a asp-action="Index" asp-controller="User" class="nav-link" >
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>ManageAccount</span>
+                </a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -354,6 +360,7 @@
     <script src="~/AssetsAdmin/js/demo/chart-area-demo.js"></script>
     <script src="~/AssetsAdmin/js/demo/chart-pie-demo.js"></script>
     <script src="~/js/site.js"></script>
+    @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

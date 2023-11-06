@@ -1,0 +1,44 @@
+﻿@model BusinessObject.Dtos.Account.UserDtos
+@{
+    Layout = "_Layout";
+}
+<div>
+    <div>
+        <nav class="breadcrumb breadcrumb-dash">
+            <a class="breadcrumb-item" asp-controller="Admin" asp-action="Index"><i class="fas fa-fw fa-home"></i>Home</a>
+            <a class="breadcrumb-item" asp-controller="User" asp-action="Index">Manage Accounts</a>
+            <span class="breadcrumb-item active">Manage Accounts Detail</span>
+        </nav>
+    </div>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="m-0 font-weight-bold text-primary">Manage Accounts Detail</h2>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-striped" id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                    <td class="col-sm-2">FullName</td>
+                    <td class="col-sm-10">@Model.Fullname</td>
+                </tr>
+                <tr>
+                    <td class="col-sm-2">Email</td>
+                    <td class="col-sm-10">@Model.Email</td>
+                </tr>
+                <tr>
+                    <td class="col-sm-2">Phone</td>
+                    <td class="col-sm-10">@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <td class="col-sm-2">Status</td>
+                    <td class="col-sm-10">@Model.Status</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <a class="btn btn-outline-primary" asp-controller="User" asp-action="Edit" asp-route-id="@Model.Email">Edit</a>
+            <a class="btn btn-outline-danger" asp-controller="User" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>

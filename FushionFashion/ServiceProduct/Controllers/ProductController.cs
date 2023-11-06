@@ -45,7 +45,7 @@ namespace ServiceProduct.Controllers
         }
 
         [HttpPost("CreateProduct")]
-        public async Task<ActionResult<CreateProductViewModel>> CreateProduct(CreateProductViewModel productViewModel)
+        public async Task<ActionResult<CreateProductViewModel>> CreateProduct([FromBody]CreateProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
             {

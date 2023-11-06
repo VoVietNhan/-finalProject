@@ -40,6 +40,7 @@
                         <th>FullName</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Address</th>
                         <th>Status</th>
                         <th></th>
                     </tr>
@@ -51,6 +52,7 @@
                         {
                             <tr>
                                 <td>@item.Fullname</td>
+                                <td>@item.Email</td>
                                 <td>@item.PhoneNumber</td>
                                 <td>@item.Address</td>
                                 <td onclick="redirectToEdit('@item.Email')">

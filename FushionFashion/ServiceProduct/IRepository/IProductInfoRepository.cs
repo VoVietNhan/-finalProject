@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using BusinessObject.Dtos.ProductInfo;
 
 namespace ServiceProduct.IRepository
 {
@@ -9,5 +10,6 @@ namespace ServiceProduct.IRepository
     {
         Task<ProductInfo> GetProductInfoById(Guid Id);
         Task<List<ProductInfo>> GetProductInfoByProduct(Guid ProductId);
+        Task<ProductInfo> GetProductInfoByProductIdAndSizeId(Guid productId, Guid sizeId);
     }
 }

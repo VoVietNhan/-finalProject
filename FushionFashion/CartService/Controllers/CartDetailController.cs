@@ -1,4 +1,5 @@
-﻿using BusinessObject.Dtos.CartDetail;
+﻿using BusinessObject.Dtos.Cart;
+using BusinessObject.Dtos.CartDetail;
 using BusinessObject.Entities.Cart;
 using BusinessObject.Entities.Product;
 using CartService.Data;
@@ -23,8 +24,7 @@ namespace CartService.Controllers
         }
         [HttpGet]
         public async  Task<List<CartDetail>> GetAllCartDetailByUserId(Guid UserId) {
-            var cart = await _context.Carts.FirstOrDefaultAsync(x => x.CreatedBy == UserId);
-            var listCartDetail = await _context.CartDetails.Where(x=> x.CreatedBy == cart.Id).ToListAsync();
+            var listCartDetail = await _context.CartDetails.Where(x=> x.CreatedBy == UserId).ToListAsync();
             return listCartDetail;
         }
         [HttpPost("CreateCartDetai")]
@@ -40,18 +40,31 @@ namespace CartService.Controllers
             return cartDetail;
         }
         [HttpPost("UpdateQuantity")]
-        public async Task UpdateCartQuantity(string action, Guid ProductID)
+        public async Task UpdateCartQuantity([FromBody]UpdateDetailDTO  update)
         {
-            var cartDetail = await _context.CartDetails.FirstOrDefaultAsync(x => x.ProductId == ProductID);
-            if (action == "up")
+            var cartDetail = await _context.CartDetails.FirstOrDefaultAsync(x => x.ProductId == update.ProductId);
+            if (update.Action == "up")
             {
                 cartDetail.Quantity += 1;
+               await _context.SaveChangesAsync();
                 return;
             }
             else
             {
                 cartDetail.Quantity -= 1;
+                _context.SaveChangesAsync();
+                return;
             }
+        }
+        [HttpPost("Up")]
+        public async Task Up([FromBody]Guid ProductID)
+        {
+            var cartDetail = await _context.CartDetails.FirstOrDefaultAsync(x => x.ProductId == ProductID);
+
+                cartDetail.Quantity += 1;
+                await _context.SaveChangesAsync();
+                return;
+           
         }
         [HttpDelete("DeleteCartItem")]
         public async Task DeleteCartDetailItem(Guid ProductId)

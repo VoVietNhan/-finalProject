@@ -97,5 +97,17 @@ namespace ServiceProduct.Controllers
 
             return Ok(productInfo);
         }
+/*        [HttpGet("GetProductInfoById/{productId}/{sizeId}")]
+        public async Task<ActionResult<ProductInfoViewModel>> GetProductInfoByProductIdAndSizeId(Guid productId, Guid sizeId)
+        {
+            var productInfo = await _productInfoRepository.GetProductInfoByProductIdAndSizeId(productId, sizeId);
+
+            if (productInfo == null)
+            {
+                return NotFound("Product with the specified ID not found");
+            }
+
+            return Ok(productInfo);
+        }*/
     }
 }

@@ -15,6 +15,7 @@ namespace ServiceProduct.IServices
         public Task<UpdateProductInfoViewModel?> UpdateProductInfo(Guid id, UpdateProductInfoViewModel proinfoDTO);
         Task<List<ProductInfoViewModel>?> GetListProductInfoByProduct(Guid productId);
         Task<ProductInfoViewModel?> GetProductInfoById(Guid productId);
+        Task<ProductInfoViewModel> GetProductInfoByProductIdAndSizeId(Guid productId, Guid sizeId);
 
     }
 }

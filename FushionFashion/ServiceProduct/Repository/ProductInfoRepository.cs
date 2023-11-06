@@ -30,5 +30,12 @@ namespace ServiceProduct.Repository
 
             return productInfo;
         }
+        public async Task<ProductInfo> GetProductInfoById(Guid id)
+        {
+            var productInfo = await _appDBContext.ProductInfo.Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+
+
+            return productInfo;
+        }
     }
 }

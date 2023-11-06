@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,8 +11,8 @@ namespace ServiceAuthentication.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
-    public class WeatherForecastController : ControllerBase
+
+	public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -25,7 +26,8 @@ namespace ServiceAuthentication.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+		[Authorize(Roles = "Admin")]
+		[HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

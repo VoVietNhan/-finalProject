@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServiceAuthentication.Data;
+using ServiceAuthentication.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,9 @@ namespace Client
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddHttpClient();
+			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+			services.AddHttpClient();
             services.AddNotyf(options =>
             {
                 options.DurationInSeconds = 10;

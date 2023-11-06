@@ -73,10 +73,10 @@ namespace ServiceProduct.Controllers
         public async Task DeleteProduct(Guid id) => await _productInfoRepository.DeleteProductInfo(id);
 
 
-        [HttpGet("GetProductInfoByProduct/{productId}")]
-        public async Task<ActionResult<List<ProductInfoViewModel>>> GetProductInfoByProduct(Guid productId)
+        [HttpGet("GetListProductInfoByProduct/{productId}")]
+        public async Task<ActionResult<List<ProductInfoViewModel>>> GetListProductInfoByProduct(Guid productId)
         {
-            var productInfo = await _productInfoRepository.GetProductInfoByProduct(productId);
+            var productInfo = await _productInfoRepository.GetListProductInfoByProduct(productId);
 
             if (productInfo == null)
             {
@@ -85,6 +85,17 @@ namespace ServiceProduct.Controllers
 
             return Ok(productInfo);
         }
+        [HttpGet("GetProductInfoById/{Id}")]
+        public async Task<ActionResult<ProductInfoViewModel>> GetProductInfoById(Guid Id)
+        {
+            var productInfo = await _productInfoRepository.GetProductInfoById(Id);
 
+            if (productInfo == null)
+            {
+                return NotFound("Product with the specified ID not found");
+            }
+
+            return Ok(productInfo);
+        }
     }
 }

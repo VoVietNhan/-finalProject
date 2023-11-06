@@ -53,7 +53,7 @@ namespace ServiceProduct.Services
             return _mapper.Map<List<ProductInfoViewModel>>(category);
         }
 
-        public async Task<List<ProductInfoViewModel>> GetProductInfoByProduct(Guid productId)
+        public async Task<List<ProductInfoViewModel>> GetListProductInfoByProduct(Guid productId)
         {
             var productInfo = await _unitOfWork.ProductInfoRepository.GetProductInfoByProduct(productId);
 
@@ -63,6 +63,17 @@ namespace ServiceProduct.Services
             }
 
             return _mapper.Map<List<ProductInfoViewModel>>(productInfo);
+        }
+        public async Task<ProductInfoViewModel> GetProductInfoById(Guid Id)
+        {
+            var productInfo = await _unitOfWork.ProductInfoRepository.GetProductInfoById(Id);
+
+            if (productInfo == null)
+            {
+                return null;
+            }
+
+            return _mapper.Map<ProductInfoViewModel>(productInfo);
         }
 
 

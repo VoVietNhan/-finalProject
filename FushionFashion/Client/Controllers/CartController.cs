@@ -53,11 +53,11 @@ namespace Client.Controllers
 
                             string cartData = cartRespone.Content.ReadAsStringAsync().Result;
                             var cart = JsonConvert.DeserializeObject<Cart>(cartData);
-                            if (cart.CreatedBy.ToString() == user.Id)
+                            if (cart.CreatedBy == user.Id)
                             {
                                 var cartDetail = new CartDetailDTO();
                                 cartDetail.CartId = cart.Id;
-                                cartDetail.UserId = new Guid(user.Id);
+                                cartDetail.UserId = user.Id;
                                 cartDetail.Quantity = 1;
                                 cartDetail.ProductId = infoProduct.ProductId;
                                 string jsonCartDetail = JsonConvert.SerializeObject(cartDetail);

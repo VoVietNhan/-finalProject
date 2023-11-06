@@ -2,6 +2,7 @@
 using BusinessObject.Dtos.Product;
 using BusinessObject.Dtos.ProductInfo;
 using BusinessObject.Dtos.Size;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -23,6 +24,7 @@ namespace Client.Controllers
         public ShopController(HttpClient client) { 
             _client = client;
         }
+
         public IActionResult Index()
         {
             List<CategoryViewModel>  cateList = new List<CategoryViewModel>();

@@ -33,7 +33,7 @@ namespace ServiceAuthentication
             services.AddAutoMapper(typeof(MapperProfile));
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDB")));
             services.AddSingleton(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
-            services.AddScoped<IEmailService, EmailService>();
+            services.AddTransient<IEmailService, EmailService>();
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 5;
@@ -79,7 +79,7 @@ namespace ServiceAuthentication
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
-                    Description = "Enter 'Bearer' [space] and enter your valid token. \r\n\n\r\nExample: \"Beare sdfadsafsafsadsfsafdsf\"",
+                    Description = "Enter 'Bearer' [space] and enter your valid token. \r\n\n\r\nExample: \"Bearer sdfadsafsafsadsfsafdsf\"",
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,
                     BearerFormat = "JWT",
@@ -100,10 +100,26 @@ namespace ServiceAuthentication
                     }
                 });
             });
+
+			/*services.AddCors(cors => cors.AddPolicy("AllowAll", policy =>
+			{
+				policy.AllowAnyOrigin()
+						.AllowAnyMethod()
+						.AllowAnyHeader();
+			}));
+
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Auth", policy => policy.RequireAuthenticatedUser());
+                options.AddPolicy("All", policy => policy.RequireRole("Admin", "User"));
+                options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("User", policy => policy.RequireRole("User"));
+            });*/
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -112,7 +128,7 @@ namespace ServiceAuthentication
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ServiceAuthentication v1"));
             }
 
-            app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 
             app.UseRouting();
 

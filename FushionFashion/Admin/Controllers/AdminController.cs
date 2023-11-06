@@ -2,14 +2,11 @@
 
 namespace Admin.Controllers
 {
-    public class AdminController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-        public ActionResult AddProduct() {
-            return View();
-        }
-    }
+	public class AdminController : Controller
+	{
+		public IActionResult Index()
+		{
+			return View();
+		}
+	}
 }

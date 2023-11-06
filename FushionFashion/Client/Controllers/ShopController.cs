@@ -54,7 +54,7 @@ namespace Client.Controllers
             var product = new ProductViewModel();
             var infoProduct = new List<ProductInfoViewModel>();
             HttpResponseMessage respone = _client.GetAsync(productUri + "/GetProductById" + $"/{productId}").Result;
-            HttpResponseMessage infoRespone = _client.GetAsync(infoUri+ "/GetProductInfoByProduct" + $"/{productId}").Result; 
+            HttpResponseMessage infoRespone = _client.GetAsync(infoUri+ "/GetListProductInfoByProduct" + $"/{productId}").Result; 
             if (respone.IsSuccessStatusCode)
             {
                 string data = respone.Content.ReadAsStringAsync().Result;

@@ -1,4 +1,6 @@
-﻿using BusinessObject.Dtos.Product;
+﻿using BusinessObject.Dtos.Order;
+using BusinessObject.Dtos.Product;
+using BusinessObject.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -22,12 +24,31 @@ namespace Admin.Controllers
             HttpResponseMessage respone = _client.GetAsync(productUri + "/GetAllProduct").Result;
             if (respone.IsSuccessStatusCode)
             {
-                string data = respone.Content.ReadAsStringAsync().Result;
-                productList = JsonConvert.DeserializeObject<List<ProductViewModel>>(data);
-
+                string products = respone.Content.ReadAsStringAsync().Result;
+                productList = JsonConvert.DeserializeObject<List<ProductViewModel>>(products);
             }
             ViewBag.product = productList;
             return View();
         }
+
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(ProductViewModel product)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            
+            return View(product);
+        }
+
     }
 }

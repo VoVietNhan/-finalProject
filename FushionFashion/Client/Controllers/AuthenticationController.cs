@@ -3,6 +3,8 @@ using AspNetCoreHero.ToastNotification.Notyf;
 using BusinessObject.Dtos.Account;
 using BusinessObject.Entities.Account;
 using BusinessObject.Entities.Product;
+using BusinessObject.Enum.EnumRole;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -24,7 +26,6 @@ namespace Client.Controllers
         private readonly INotyfService _notyfService;
         private readonly HttpClient client;
         private readonly string AuthenticationApiUrl;
-        private readonly string CartApiUrl;
 
         public AuthenticationController(INotyfService notyfService)
         {
@@ -33,7 +34,56 @@ namespace Client.Controllers
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);
             AuthenticationApiUrl = "https://localhost:5001/api/Authentication";
-            CartApiUrl = "";
+        }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPassword forgotPassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var json = JsonSerializer.Serialize(forgotPassword);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(AuthenticationApiUrl + "/ForgotPasswordUser", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    _notyfService.Success("Send email successfully!");
+                    return RedirectToAction("ResetPassword", "User");
+
+                }
+            }
+            _notyfService.Error("Email is incorrect!");
+            return View();
+        }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePassword changePassword)
+        {
+            var email = HttpContext.Session.GetString("Email");
+            var json = JsonSerializer.Serialize(changePassword);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync($"{AuthenticationApiUrl + "/ChangePassword"}/{email}", content);
+            if (!response.IsSuccessStatusCode)
+            {
+                _notyfService.Error("OldPassword or NewPassword is invalid!");
+                return View();
+            }
+            _notyfService.Success("Change password is success!");
+            return RedirectToAction("Profile", "Authentication");
         }
 
         public async Task<IActionResult> Profile()
@@ -68,9 +118,11 @@ namespace Client.Controllers
 
 				if (response.IsSuccessStatusCode)
 				{
-					return RedirectToAction("Login", "Authentication");
+                    _notyfService.Success("Register is success!");
+					return RedirectToAction("Index", "Shop");
 				}
 			}
+            _notyfService.Error("Input is invalid!");
 			return View();
 		}
 
@@ -78,9 +130,7 @@ namespace Client.Controllers
         {
             return View();
         }
-        public IActionResult ChangePassword() {
-            return View();
-        }
+
 		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginDtos loginDtos)

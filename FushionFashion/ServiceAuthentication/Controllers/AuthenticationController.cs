@@ -62,6 +62,19 @@ namespace ServiceAuthentication.Controllers
             return _mapper.Map<UserDtos>(user);
         }
 
+        [HttpPut("UpdateUser/{email}")]
+        public async Task<ActionResult<UpdateUserDtos>> UpdateUser(string email, UpdateUserDtos updateUserDtos)
+        {
+            var userExits = await _userManager.FindByEmailAsync(email);
+            if (userExits == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = "User doesn't exists!" });
+            }
+            var user = _mapper.Map(updateUserDtos, userExits);
+            await _userManager.UpdateAsync(user);
+            return _mapper.Map<UpdateUserDtos>(userExits);
+        }
+
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser(RegisterDtos registerDtos)
         {
@@ -144,8 +157,9 @@ namespace ServiceAuthentication.Controllers
 
                 return Ok(new
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(jwtToken)
-                });
+                    token = new JwtSecurityTokenHandler().WriteToken(jwtToken),
+					expiration = jwtToken.ValidTo
+				});
             }
             return StatusCode(StatusCodes.Status401Unauthorized, new Response { Status = "Error", Message = "Email or password invalid!" });
         }
@@ -163,11 +177,10 @@ namespace ServiceAuthentication.Controllers
             return token;
         }
 
-        [HttpPost("ChangePassword")]
-        [Authorize]
-        public async Task<IActionResult> ChangePasswordUser(ChangePassword changePassword)
+        [HttpPost("ChangePassword/{email}")]
+        public async Task<IActionResult> ChangePasswordUser(string email, ChangePassword changePassword)
         {
-            var user = await _userManager.FindByEmailAsync(changePassword.Email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
                 return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = "User doesn't exists!" });
@@ -181,15 +194,15 @@ namespace ServiceAuthentication.Controllers
             return StatusCode(StatusCodes.Status200OK, new Response { Status = "Success", Message = "User change password successfully!" });
         }
 
-        [HttpPost("ForgotPassword")]
-        public async Task<IActionResult> ForgotPasswordUser(string email)
+        [HttpPost("ForgotPasswordUser")]
+        public async Task<IActionResult> ForgotPasswordUser(ForgotPassword forgotPassword)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(forgotPassword.Email);
             if (user != null)
             {
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var link = Url.Action(nameof(ResetPassword), "Authentication", new { token, email = user.Email }, Request.Scheme);
-                var message = new Message(new string[] { user.Email! }, "Forgot Password", "<p style = \"text-align: center; color: black; font-weight: bold; font-size: 2em;\">This is email confirm!</p>" +
+                var message = new Message(new string[] { user.Email! }, "Forgot Password", "<p style = \"text-align: center; color: black; font-weight: bold; font-size: 2em;\">This is email reset password!</p>" +
                     $"<div style=\"text-align: center;\"><a text-decoration: none; background-color: #0074e4; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 1.2em;\" href=\"{link!}\">Click me</a></div>");
                 _emailService.SendEmail(message);
                 return StatusCode(StatusCodes.Status200OK, new Response { Status = "Success", Message = "Password changed request sent to email!" });
@@ -198,7 +211,7 @@ namespace ServiceAuthentication.Controllers
         }
 
         [HttpGet("ResetPassword")]
-        public async Task<IActionResult> ResetPassword(string email, string token)
+        public async Task<IActionResult> ResetPassword(string token, string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user != null)
@@ -216,7 +229,7 @@ namespace ServiceAuthentication.Controllers
             return StatusCode(StatusCodes.Status400BadRequest, new Response { Status = "Error", Message = "Undefined error!" });
         }
 
-        [HttpPost("ResetPassword")]
+        [HttpPost("ResetPasswordUser")]
         public async Task<IActionResult> ResetPasswordUser(ResetPassword resetPassword)
         {
             var user = await _userManager.FindByEmailAsync(resetPassword.Email);

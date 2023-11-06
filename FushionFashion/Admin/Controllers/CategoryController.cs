@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System;
 using BusinessObject.Dtos.Category;
+using BusinessObject.Dtos.Product;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Admin.Controllers
 {
@@ -30,6 +33,17 @@ namespace Admin.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Details(Guid id)
+        {
+            HttpResponseMessage response = await _client.GetAsync(cateUri + "/GetCategoryById/" + id);
+            string strData = await response.Content.ReadAsStringAsync();
 
+            var option = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
+            var Cate = System.Text.Json.JsonSerializer.Deserialize<CategoryViewModel>(strData, option);
+            return View(Cate);
+        }
     }
 }

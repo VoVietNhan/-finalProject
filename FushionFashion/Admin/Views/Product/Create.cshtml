@@ -1,4 +1,4 @@
-﻿@model BusinessObject.Dtos.Product.ProductViewModel
+﻿@model BusinessObject.Dtos.Product.CreateProductViewModel
 
 @{
     Layout = "_Layout";
@@ -12,7 +12,7 @@
 
     <div class="card-body row">
         <div class="col-md-4 table-responsive">
-            <form asp-action="Create" asp-controller="Product">
+            <form method="post" asp-action="Create" asp-controller="Product">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>

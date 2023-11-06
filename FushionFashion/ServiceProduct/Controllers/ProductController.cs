@@ -60,7 +60,7 @@ namespace ServiceProduct.Controllers
         }
 
         [HttpPut("UpdateProduct/{id}")]
-        public async Task<ActionResult<UpdateProductViewModel>> UpdateProduct(Guid id, UpdateProductViewModel productDTO)
+        public async Task<ActionResult<UpdateProductViewModel>> UpdateProduct([FromQuery] Guid id, UpdateProductViewModel productDTO)
         {
             if (ModelState.IsValid)
             {

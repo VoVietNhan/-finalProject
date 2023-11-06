@@ -73,20 +73,15 @@ namespace Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CreateProductViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var product = new Product
-                {
-                    Name = model.Name,
-                    Description = model.Description,
-                    Image = model.Image,
-                    Price = model.Price
-                };
-
-                var productJson = JsonSerializer.Serialize(product);
+               
+                var productJson = JsonConvert.SerializeObject(model);
                 var content = new StringContent(productJson, Encoding.UTF8, "application/json");
+
 
                 HttpResponseMessage response = await _client.PostAsync(productUri + "/CreateProduct", content);
 
@@ -99,8 +94,7 @@ namespace Admin.Controllers
                     ModelState.AddModelError(string.Empty, "Có lỗi khi tạo sản phẩm. Vui lòng thử lại.");
                 }
             }
-            return View(model);
+            return View();
         }
-
     }
 }

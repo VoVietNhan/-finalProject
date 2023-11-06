@@ -123,7 +123,7 @@ namespace Client.Controllers
 				}
 			}
             _notyfService.Error("Input is invalid!");
-			return View();
+			return RedirectToAction("Login", "Authentication");
 		}
 
 		public IActionResult Login()

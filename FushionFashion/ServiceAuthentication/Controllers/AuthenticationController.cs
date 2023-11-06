@@ -51,6 +51,33 @@ namespace ServiceAuthentication.Controllers
             return _mapper.Map<List<UserDtos>>(users);
         }
 
+        [HttpGet("UpdateStatus/{email}")]
+        public async Task<IActionResult> UpdateStatus(string email)
+        {
+            var userExits = await _userManager.FindByEmailAsync(email);
+            if (userExits == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = "User doesn't exists!" });
+            }
+            if ((int)userExits.Status == 1)
+            {
+                userExits.Status = BusinessObject.Enum.EnumStatus.EnumStatus.Disable;
+            }
+            else
+            {
+                userExits.Status = BusinessObject.Enum.EnumStatus.EnumStatus.Enable;
+            }
+            var result = await _userManager.UpdateAsync(userExits);
+            if (result.Succeeded)
+            {
+                return Ok(new Response { Status = "Success", Message = "User status updated successfully!" });
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to update user status!" });
+            }
+        }
+
         [HttpGet("GetUserByEmail/{email}")]
         public async Task<ActionResult<UserDtos>> GetUserByEmail(string email)
         {
@@ -132,6 +159,10 @@ namespace ServiceAuthentication.Controllers
         public async Task<IActionResult> LoginUser(LoginDtos loginDtos)
         {
             var user = await _userManager.FindByEmailAsync(loginDtos.Email);
+            if (user.Status == 0)
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, new Response { Status = "Error", Message = "Account had been block!" });
+            }
             if (user != null && await _userManager.CheckPasswordAsync(user, loginDtos.Password))
             {
                 if (!await _userManager.IsEmailConfirmedAsync(user))

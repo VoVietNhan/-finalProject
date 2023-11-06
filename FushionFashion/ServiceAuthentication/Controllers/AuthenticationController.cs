@@ -62,6 +62,19 @@ namespace ServiceAuthentication.Controllers
             return _mapper.Map<UserDtos>(user);
         }
 
+        [HttpPut("UpdateUser/{email}")]
+        public async Task<ActionResult<UpdateUserDtos>> UpdateUser(string email, UpdateUserDtos updateUserDtos)
+        {
+            var userExits = await _userManager.FindByEmailAsync(email);
+            if (userExits == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = "User doesn't exists!" });
+            }
+            var user = _mapper.Map(updateUserDtos, userExits);
+            await _userManager.UpdateAsync(user);
+            return _mapper.Map<UpdateUserDtos>(userExits);
+        }
+
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser(RegisterDtos registerDtos)
         {

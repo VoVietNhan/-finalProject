@@ -15,6 +15,7 @@ namespace BusinessObject.Mappers
     {
         public MapperProfile()
         {
+            CreateMap<AppUser, UpdateUserDtos>().ReverseMap();
             CreateMap<AppUser, RegisterDtos>().ReverseMap();
             CreateMap<AppUser, LoginDtos>().ReverseMap();
             CreateMap<AppUser, UserDtos>().ReverseMap();

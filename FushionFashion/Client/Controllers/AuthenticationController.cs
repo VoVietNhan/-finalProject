@@ -26,7 +26,6 @@ namespace Client.Controllers
         private readonly INotyfService _notyfService;
         private readonly HttpClient client;
         private readonly string AuthenticationApiUrl;
-        private readonly string CartApiUrl;
 
         public AuthenticationController(INotyfService notyfService)
         {
@@ -35,7 +34,6 @@ namespace Client.Controllers
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);
             AuthenticationApiUrl = "https://localhost:5001/api/Authentication";
-            CartApiUrl = "";
         }
 
         public IActionResult ForgotPassword()
@@ -57,16 +55,11 @@ namespace Client.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     _notyfService.Success("Send email successfully!");
-                    return View();
+                    return RedirectToAction("ResetPassword", "User");
 
                 }
             }
             _notyfService.Error("Email is incorrect!");
-            return View();
-        }
-
-        public IActionResult ResetPassword()
-        {
             return View();
         }
 

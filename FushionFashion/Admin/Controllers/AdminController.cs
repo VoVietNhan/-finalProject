@@ -14,7 +14,11 @@ namespace Admin.Controllers
 {
     public class AdminController : Controller
     {
-        Uri cateUri = new Uri("https://localhost:44321/api/Category");
+        public IActionResult Index()
+        {
+            return View();
+        }
+        /*Uri cateUri = new Uri("https://localhost:44321/api/Category");
         Uri productUri = new Uri("https://localhost:44321/api/Product");
         Uri infoUri = new Uri("https://localhost:44321/api/ProductInfo");
         Uri orderUri = new Uri("https://localhost:44321/api/Order");
@@ -23,8 +27,8 @@ namespace Admin.Controllers
         public AdminController(HttpClient client)
         {
             _client = client;
-        }
-        public IActionResult Index()
+        }*/
+        /*public IActionResult Index()
         {
             List<CategoryViewModel> cateList = new List<CategoryViewModel>();
             List<ProductViewModel> productList = new List<ProductViewModel>();
@@ -62,6 +66,6 @@ namespace Admin.Controllers
             ViewBag.cate = cateList;
             ViewBag.product = productList;
             return View();
-        }
+        }*/
     }
 }

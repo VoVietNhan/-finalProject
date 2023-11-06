@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObject.Dtos.Account;
+using BusinessObject.Dtos.CartDetail;
 using BusinessObject.Dtos.Category;
 using BusinessObject.Dtos.Order;
 using BusinessObject.Dtos.Product;
@@ -7,6 +8,7 @@ using BusinessObject.Dtos.ProductInfo;
 using BusinessObject.Dtos.Size;
 using BusinessObject.Entities;
 using BusinessObject.Entities.Account;
+using BusinessObject.Entities.Cart;
 using BusinessObject.Entities.Product;
 
 namespace BusinessObject.Mappers
@@ -36,6 +38,8 @@ namespace BusinessObject.Mappers
             CreateMap<Size, SizeViewModel>().ReverseMap(); 
             CreateMap<Size, CreateSizeViewModel>().ReverseMap(); 
             CreateMap<Size, UpdateSizeViewModel>().ReverseMap(); 
+
+            CreateMap<CartDetail,CartDetailDTO>().ReverseMap();
         }
     }
 }

@@ -26,14 +26,19 @@ namespace ServiceProduct.Repository
         public async Task<List<ProductInfo>> GetProductInfoByProduct(Guid ProductId)
         {
             var productInfo = await _appDBContext.ProductInfo.Where(x => x.ProductId.Equals(ProductId)).Include(c=>c.Size).ToListAsync();
-                
-
             return productInfo;
         }
         public async Task<ProductInfo> GetProductInfoById(Guid id)
         {
-            var productInfo = await _appDBContext.ProductInfo.Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
-
+            var productInfo = await _appDBContext.ProductInfo.Where(x => x.Id.Equals(id)).Include(c => c.Size).FirstOrDefaultAsync();
+            return productInfo;
+        }
+        public async Task<ProductInfo> GetProductInfoByProductIdAndSizeId(Guid productId, Guid sizeId)
+        {
+            var productInfo = await _appDBContext.ProductInfo
+                .Where(row => row.ProductId == productId && row.SizeId == sizeId)
+                .Include(c => c.Size)
+                .FirstOrDefaultAsync();
 
             return productInfo;
         }

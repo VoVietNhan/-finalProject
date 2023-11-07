@@ -1,0 +1,35 @@
+﻿@model BusinessObject.Dtos.Category.CreateCategoryViewModel
+<!-- DataTales Example -->
+<div>
+    <div>
+        <nav class="breadcrumb breadcrumb-dash">
+            <a class="breadcrumb-item" asp-controller="Home" asp-action="Index"><i class="fas fa-fw fa-home"></i>Home</a>
+            <a class="breadcrumb-item" asp-controller="Category" asp-action="Index">Manage Category</a>
+            <span class="breadcrumb-item active">Create Category</span>
+        </nav>
+    </div>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="m-0 font-weight-bold text-primary">Create Category</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label" style="padding-top:7px">Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" asp-for="Name" placeholder="Name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-outline-primary" />
+                        <a class="btn btn-outline-danger" asp-controller="Category" asp-action="Index">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

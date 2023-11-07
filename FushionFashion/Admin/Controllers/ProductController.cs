@@ -73,6 +73,33 @@ namespace Admin.Controllers
             var Product = JsonSerializer.Deserialize<ProductViewModel>(strData, option);
             return View(Product);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Guid id, ProductViewModel updatedProduct)
+        {
+            if (id != updatedProduct.Id)
+            {
+               
+                return View(updatedProduct);
+            }
+
+            var json = JsonSerializer.Serialize(updatedProduct);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.PostAsync(productUri + "/UpdateProduct", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                
+                return View(updatedProduct);
+            }
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
